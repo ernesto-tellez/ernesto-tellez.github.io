@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formula Electric Front-Wing — Ernesto Tellez Perez</title>
-<meta name="description" content="Project writeup: Formula Electric front-wing mounting system design and structural analysis.">
+<title>Formula Electric at Berkeley — Ernesto Tellez Perez</title>
+<meta name="description" content="Aerodynamics and structural engineering work on Formula Electric at Berkeley's front wing program.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
   ::selection{background:var(--accent); color:var(--white);}
   :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
 
-  .sheet{ max-width:900px; margin:0 auto; padding:0 24px; }
+  .sheet{ max-width:960px; margin:0 auto; padding:0 24px; }
 
   nav{
     position:sticky; top:0; z-index:50;
@@ -64,7 +64,7 @@
   header.title-block{
     border:1.5px solid var(--ink);
     margin:32px auto 0;
-    max-width:900px;
+    max-width:960px;
     background:var(--white);
   }
   .tb-top{ display:grid; grid-template-columns:1fr auto; border-bottom:1.5px solid var(--ink); }
@@ -89,11 +89,10 @@
     .tb-fields{ border-left:none; border-top:1.5px solid var(--ink); flex-direction:row; flex-wrap:wrap; }
     .tb-field{ flex:1 1 50%; border-right:1px solid var(--line); }
   }
+  .tb-bottom{ padding:22px 32px; }
+  .tb-bottom p{ color:var(--ink-soft); max-width:65ch; }
 
-  .hero-media{
-    border-top:1.5px solid var(--ink);
-    background:var(--white);
-  }
+  .hero-media{ border-top:1.5px solid var(--ink); background:var(--white); }
   .hero-media img{ width:100%; display:block; }
 
   .dim-line{
@@ -111,8 +110,15 @@
     font-family:var(--cond); font-weight:700; text-transform:uppercase;
     font-size:clamp(1.4rem, 3vw, 1.8rem); margin-bottom:16px;
   }
+  h3{
+    font-family:var(--cond); font-weight:700; text-transform:uppercase;
+    font-size:1.05rem; margin:22px 0 8px;
+  }
   section p{ color:var(--ink-soft); max-width:65ch; }
   section p + p{ margin-top:12px; }
+  section ul{ color:var(--ink-soft); max-width:65ch; padding-left:20px; margin-top:8px; }
+  section li{ margin-bottom:6px; }
+  section li strong{ color:var(--ink); }
 
   .stat-row{
     display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5px;
@@ -121,8 +127,23 @@
   }
   @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
   .stat{ background:var(--white); padding:20px; }
-  .stat .num{ font-family:var(--cond); font-weight:700; font-size:2rem; color:var(--accent); }
-  .stat .label{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
+  .stat .num{ font-family:var(--cond); font-weight:700; font-size:1.9rem; color:var(--accent); }
+  .stat .label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
+
+  .gallery{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
+    margin:20px 0 8px;
+  }
+  @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
+  .gallery figure{
+    border:1.5px solid var(--ink); background:var(--white);
+  }
+  .gallery img{ width:100%; display:block; border-bottom:1px solid var(--line); }
+  .gallery figcaption{
+    padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
+    color:var(--ink-soft); line-height:1.4;
+  }
+  .gallery.full{ grid-template-columns:1fr; }
 
   .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
   .chip{
@@ -130,8 +151,17 @@
     padding:5px 10px; color:var(--ink-soft);
   }
 
+  .season-block{
+    border:1.5px solid var(--ink); background:var(--white);
+    margin:24px 0; padding:26px 28px;
+  }
+  .season-label{
+    font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:6px;
+  }
+
   footer{
-    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:900px;
+    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:960px;
     background:var(--white); padding:32px; text-align:center;
   }
   footer p{ color:var(--ink-soft); margin-bottom:16px; }
@@ -156,54 +186,120 @@
 <header class="title-block sheet" style="padding:0;">
   <div class="tb-top">
     <div class="tb-name">
-      <div class="eyebrow">Project Writeup</div>
-      <h1>Formula Electric Front-Wing</h1>
-      <p class="role">Aerodynamics &amp; Structural Engineer — Formula Electric at Berkeley</p>
+      <div class="eyebrow">Project — Ongoing</div>
+      <h1>Formula Electric at Berkeley</h1>
+      <p class="role">Aerodynamics &amp; Structural Engineer</p>
     </div>
     <div class="tb-fields">
-      <div class="tb-field"><span class="k">Role</span><span class="v">Design Lead</span></div>
-      <div class="tb-field"><span class="k">Dates</span><span class="v">Oct 2025 — Present</span></div>
+      <div class="tb-field"><span class="k">Team</span><span class="v">Aero / Structures</span></div>
+      <div class="tb-field"><span class="k">Started</span><span class="v">Oct 2025</span></div>
       <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
     </div>
   </div>
+  <div class="tb-bottom">
+    <p>I design and structurally validate aerodynamic components for Berkeley's Formula SAE Electric car — currently focused on the front wing assembly, its mounting hardware, and the FEA work that keeps it light without giving up strength. This page is a running log of that work and will grow each season.</p>
+  </div>
   <div class="hero-media">
-    <img src="../images/Fwing_Render.png" alt="Formula Electric front-wing mounting system CAD render" style="object-position: 75% center;">
+    <img src="../images/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render">
   </div>
 </header>
 
 <div class="sheet">
-  <div class="dim-line"><span class="dim-label">Overview</span></div>
+
+  <!-- ===================== SEASON: 2025-26 ===================== -->
+  <div class="dim-line"><span class="dim-label">2025 – 26 Season · Front Wing</span></div>
+
   <section>
-    <h2>The Problem</h2>
-    <p>Formula Electric's front wing generates a significant share of the car's downforce, but every gram in the mounting hardware is weight the car has to accelerate and brake against. The existing mounting system was over-built relative to its actual load cases, and the team needed a lighter design that still held up under race conditions without compromising safety margins.</p>
+    <h2>Overview</h2>
+    <p>The front wing generates a significant share of the car's downforce, but every gram in the mounting hardware is weight the car has to accelerate and brake against. My work this season centered on redesigning the mounting system — the pylons, U-channels, and ribs that connect the wing to the chassis — to cut mass while holding a team-wide minimum factor of safety of 1.75.</p>
   </section>
 
-  <div class="dim-line"><span class="dim-label">Results</span></div>
   <section>
+    <h3>Results</h3>
     <div class="stat-row">
-      <div class="stat"><div class="num">33%</div><div class="label">Mounting Mass Cut</div></div>
-      <div class="stat"><div class="num">1.75</div><div class="label">Min. Factor of Safety</div></div>
-      <div class="stat"><div class="num">15%</div><div class="label">Total Wing Mass Reduced</div></div>
+      <div class="stat"><div class="num">148 g</div><div class="label">Pylon Mass (from 250 g)</div></div>
+      <div class="stat"><div class="num">41%</div><div class="label">Pylon Mass Reduction</div></div>
+      <div class="stat"><div class="num">1.75+</div><div class="label">Min. Factor of Safety Held</div></div>
     </div>
   </section>
 
-  <div class="dim-line"><span class="dim-label">Approach</span></div>
   <section>
-    <h2>Design &amp; Analysis</h2>
-    <p>I led the design and ANSYS structural analysis of the front-wing mounting system. Aerodynamic load data from the team's CFD and testing work was converted into discrete load cases and boundary conditions, which drove the FEA setup — making sure the mount could survive worst-case cornering and braking loads, not just steady-state running.</p>
-    <p>From there I iterated the mounting geometry to strip out unnecessary material while keeping the factor of safety above 1.75 across every load case, ultimately cutting mounting mass by 33%.</p>
+    <h3>Design &amp; Mounting Strategy</h3>
+    <p>The wing mounts to the car only through the front element (FE1), removing the need for separate mounting ribs on the second element (FE2) and simplifying the load path. Mount height and the third element (FE3) are both adjustable, which lets the team tune center of pressure and upwash without a full redesign between events.</p>
+    <ul>
+      <li><strong>Pylons</strong> — 0.148 kg, a 41% mass reduction from the initial 250 g design, achieved through topology optimization. FOS: 3.6.</li>
+      <li><strong>Mounting U-channels</strong> — FOS: 2.4.</li>
+      <li><strong>Pylon mounting ribs</strong> — internal truss/spar system removed after optimization showed it wasn't load-bearing. FOS: 3.2.</li>
+    </ul>
+  </section>
 
-    <h2 style="margin-top:32px;">Manufacturing</h2>
-    <p>The redesigned aerodynamic components were manufactured in carbon fiber using layup preparation and resin infusion, bringing the total front-wing mass down by 15%. I also supported composite fabrication for other subteams working through the same manufacturing process.</p>
+  <section>
+    <h3>Structural Analysis</h3>
+    <p>Every component went through static structural FEA in ANSYS before manufacturing — checking von-Mises stress against the material's yield strength, then confirming the resulting factor of safety cleared the team's 1.75 minimum with margin.</p>
+
+    <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:22px 0 10px;">Pylon &amp; Mounting</h4>
+    <p>[Write a few sentences here about the pylon and mounting analysis as a whole — the design decisions behind it, what the three plots below show together, how the results compare across iterations, or anything else worth explaining before someone looks at the individual images. This paragraph sits above all three photos, separate from the short caption under each one.]</p>
+    <div class="gallery">
+      <figure>
+        <img src="../images/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
+        <figcaption>Equivalent (von-Mises) stress on the rear pylon — peak stress localized at the mounting bracket junction, well under the material's yield point.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon">
+        <figcaption>Resulting factor of safety on the same pylon — minimum 4.02, comfortably above the 1.75 team requirement.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket">
+        <figcaption>Mounting bracket safety factor check — minimum ~3.0 at the bolt holes, the highest-stress region.</figcaption>
+      </figure>
+    </div>
+
+    <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:26px 0 10px;">Mesh Convergence</h4>
+    <p>[Write a few sentences here about the mesh convergence study — why it mattered for this component, what element sizes were tested, and what confirming convergence let you conclude about the FEA results before trusting them for design decisions.]</p>
+    <div class="gallery full">
+      <figure>
+        <img src="../images/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
+        <figcaption>Mesh convergence study — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h3>Assembly &amp; Detail</h3>
+    <p>[Write a few sentences here about the assembly and detail photos — how the pieces fit together, the hardware choices behind the mounting and clevis design, or anything worth calling out before someone looks at the two close-ups below.]</p>
+    <div class="gallery">
+      <figure>
+        <img src="../images/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
+        <figcaption>Pylon-to-wing mounting detail — clevis hardware and load path into the composite element.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware">
+        <figcaption>Adjustable rod-end hardware used for fine height and angle tuning between events.</figcaption>
+      </figure>
+    </div>
 
     <div class="tool-chips">
       <span class="chip">ANSYS Structural</span>
-      <span class="chip">FEA</span>
+      <span class="chip">Topology Optimization</span>
       <span class="chip">SolidWorks</span>
       <span class="chip">Carbon Fiber Layup</span>
       <span class="chip">Resin Infusion</span>
     </div>
   </section>
+
+  <section>
+    <h3>Design Event Poster</h3>
+    <p>Presented this work at the team's design expo — poster coming soon.</p>
+  </section>
+
+  <!-- ===================== NEXT SEASON GOES HERE ===================== -->
+  <!--
+  <div class="dim-line"><span class="dim-label">2026 – 27 Season · [Next Component]</span></div>
+  <div class="season-block">
+    <div class="season-label">In progress</div>
+    <p>Add next year's writeup here, following the same section structure above.</p>
+  </div>
+  -->
 
 </div>
 
