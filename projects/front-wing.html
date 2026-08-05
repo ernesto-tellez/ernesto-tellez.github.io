@@ -242,7 +242,7 @@
     <p>Every component went through static structural FEA in ANSYS before manufacturing — checking von-Mises stress against the material's yield strength, then confirming the resulting factor of safety cleared the team's 1.75 minimum with margin.</p>
 
     <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:22px 0 10px;">Pylon &amp; Mounting</h4>
-    <p>[Write a few sentences here about the pylon and mounting analysis as a whole — the design decisions behind it, what the three plots below show together, how the results compare across iterations, or anything else worth explaining before someone looks at the individual images. This paragraph sits above all three photos, separate from the short caption under each one.]</p>
+    <p>The front-wing pylon and mounting parts were designed using load cases from the wing's aerodynamic downforce and drag, along with the car's maximum acceleration, then refined through topology optimization and repeated FEA. For the pylon, material was removed from the low-stress areas in the center to create the open triangular shape, while keeping more material around the upper wing mounts, lower chassis mounts, and center junction where the loads travel through. The mounting ribs were optimized the same way, including removing the internal truss/spar between the upper and lower rails while keeping the areas around the pylon mounts, vertical supports, and bolt holes reinforced. The final designs had minimum factors of safety of 4.02 for the pylon, 3.20 for the rib, and 2.99 for the mounting bracket, all above our target of 1.75.</p>
     <div class="gallery">
       <figure>
         <img src="../images/formula-electric/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
@@ -263,18 +263,18 @@
     </div>
 
     <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:26px 0 10px;">Mesh Convergence</h4>
-    <p>[Write a few sentences here about the mesh convergence study — why it mattered for this component, what element sizes were tested, and what confirming convergence let you conclude about the FEA results before trusting them for design decisions.]</p>
+    <p>Before this, structural simulations across the aero team were mostly treated as one-and-done runs, without mesh convergence or much validation of the model setup. I began looking into how to properly validate the FEA, testing element sizes from 5 mm down to 0.5 mm and checking when the results stopped changing significantly. This also led me to improve how bolts, contacts, and boundary conditions were modeled to reduce artificial stress singularities and fix issues in the simulations. I then implemented this validation process across the front-wing structural analysis so the results could be trusted for design decisions.</p>
     <div class="gallery full">
       <figure>
         <img src="../images/formula-electric/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
-        <figcaption>Mesh convergence study — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
+        <figcaption>Mesh convergence study on the rear mounting U-channel — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
       </figure>
     </div>
   </section>
 
   <section>
     <h3>Assembly &amp; Detail</h3>
-    <p>[Write a few sentences here about the assembly and detail photos — how the pieces fit together, the hardware choices behind the mounting and clevis design, or anything worth calling out before someone looks at the two close-ups below.]</p>
+    <p>The pylon mounts directly to the wing ribs using M4 bolts, which were sized up from the M3 hardware used on SN4 because the smaller bolts were not secure enough. Three mounting holes in the pylon allow the wing to be raised to different heights for different aerodynamic configurations. The pylon attaches to the chassis with knurled thumbscrews, allowing the entire front wing to be removed in under a minute without tools. The stiffness tethers connect directly to a small tab on the pylon, so they stay tensioned and do not need to be adjusted when the wing is removed. Using a simple mounting tab also kept the design easy to manufacture and assemble.</p>
     <div class="gallery">
       <figure>
         <img src="../images/formula-electric/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
