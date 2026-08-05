@@ -208,7 +208,7 @@
 
   <div class="gallery full" style="margin-bottom:24px;">
     <figure>
-      <img src="../images/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render">
+      <img src="../images/formula-electric/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render">
       <figcaption>Full front wing assembly — pylons, mounting hardware, and both aerodynamic elements.</figcaption>
     </figure>
   </div>
@@ -245,16 +245,20 @@
     <p>[Write a few sentences here about the pylon and mounting analysis as a whole — the design decisions behind it, what the three plots below show together, how the results compare across iterations, or anything else worth explaining before someone looks at the individual images. This paragraph sits above all three photos, separate from the short caption under each one.]</p>
     <div class="gallery">
       <figure>
-        <img src="../images/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
+        <img src="../images/formula-electric/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
         <figcaption>Equivalent (von-Mises) stress on the rear pylon — peak stress localized at the mounting bracket junction, well under the material's yield point.</figcaption>
       </figure>
       <figure>
-        <img src="../images/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon">
+        <img src="../images/formula-electric/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon">
         <figcaption>Resulting factor of safety on the same pylon — minimum 4.02, comfortably above the 1.75 team requirement.</figcaption>
       </figure>
       <figure>
-        <img src="../images/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket">
+        <img src="../images/formula-electric/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket">
         <figcaption>Mounting bracket safety factor check — minimum ~3.0 at the bolt holes, the highest-stress region.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-rib-fos.png" alt="Factor of safety plot on the pylon mounting rib">
+        <figcaption>Pylon mounting rib safety factor check, after the internal truss/spar system was removed during optimization — minimum ~3.2.</figcaption>
       </figure>
     </div>
 
@@ -262,7 +266,7 @@
     <p>[Write a few sentences here about the mesh convergence study — why it mattered for this component, what element sizes were tested, and what confirming convergence let you conclude about the FEA results before trusting them for design decisions.]</p>
     <div class="gallery full">
       <figure>
-        <img src="../images/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
+        <img src="../images/formula-electric/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
         <figcaption>Mesh convergence study — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
       </figure>
     </div>
@@ -273,12 +277,20 @@
     <p>[Write a few sentences here about the assembly and detail photos — how the pieces fit together, the hardware choices behind the mounting and clevis design, or anything worth calling out before someone looks at the two close-ups below.]</p>
     <div class="gallery">
       <figure>
-        <img src="../images/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
+        <img src="../images/formula-electric/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
         <figcaption>Pylon-to-wing mounting detail — clevis hardware and load path into the composite element.</figcaption>
       </figure>
       <figure>
-        <img src="../images/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware">
+        <img src="../images/formula-electric/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware">
         <figcaption>Adjustable rod-end hardware used for fine height and angle tuning between events.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-c-channel-detail.png" alt="Close-up render of the adjustable C-channel">
+        <figcaption>Adjustable C-channel — allows the mounting position to be tuned between events.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-compression-limiters.png" alt="Close-up render of the T-nut compression limiters">
+        <figcaption>T-nut compression limiters — protect the composite panel from crushing when the mounting bolts are torqued down.</figcaption>
       </figure>
     </div>
 
@@ -293,11 +305,11 @@
 
   <section>
     <h3>Design Event Poster</h3>
-    <p>Presented this work at FSAE Electric at Michigan.</p>
+    <p>Poster made for FSAE Electric at Michigan.</p>
     <div class="gallery full">
       <figure>
-        <img src="../images/fe-poster-michigan.png" alt="Design competition poster presented at FSAE Electric at Michigan">
-        <figcaption>Poster presented at FSAE Electric at Michigan.</figcaption>
+        <img src="../images/formula-electric/fe-poster-michigan.png" alt="Design competition poster made for FSAE Electric at Michigan">
+        <figcaption>Poster made for FSAE Electric at Michigan.</figcaption>
       </figure>
     </div>
   </section>
