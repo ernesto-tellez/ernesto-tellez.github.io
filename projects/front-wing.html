@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula Electric Front-Wing — Ernesto Tellez Perez</title>
+<meta name="description" content="Project writeup: Formula Electric front-wing mounting system design and structural analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE9E0;
+    --paper-alt:#E4DFD3;
+    --ink:#23231F;
+    --ink-soft:#54524A;
+    --steel:#46626E;
+    --accent:#6B4C93;
+    --line:#B8B2A2;
+    --line-strong:#8C8676;
+    --white:#F8F6F1;
+
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --cond: 'IBM Plex Sans Condensed', system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
+      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:var(--white);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  .sheet{ max-width:900px; margin:0 auto; padding:0 24px; }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(237,233,224,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1.5px solid var(--ink);
+  }
+  nav .sheet{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; }
+  .nav-mark{ font-family:var(--mono); font-weight:600; font-size:0.85rem; letter-spacing:0.06em; }
+  .nav-mark span{ color:var(--accent); }
+  .back-link{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.04em;
+    text-transform:uppercase; text-decoration:none;
+    display:flex; align-items:center; gap:6px;
+  }
+  .back-link:hover{ color:var(--accent); }
+
+  header.title-block{
+    border:1.5px solid var(--ink);
+    margin:32px auto 0;
+    max-width:900px;
+    background:var(--white);
+  }
+  .tb-top{ display:grid; grid-template-columns:1fr auto; border-bottom:1.5px solid var(--ink); }
+  .tb-name{ padding:36px 32px 24px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.12em;
+    color:var(--steel); text-transform:uppercase; margin-bottom:14px;
+  }
+  h1{
+    font-family:var(--cond); font-weight:700;
+    font-size:clamp(2rem, 5vw, 3rem);
+    line-height:1.05; letter-spacing:-0.01em; text-transform:uppercase;
+  }
+  .role{ font-family:var(--mono); font-size:0.95rem; color:var(--ink-soft); margin-top:12px; }
+  .tb-fields{ display:flex; flex-direction:column; border-left:1.5px solid var(--ink); font-family:var(--mono); font-size:0.75rem; }
+  .tb-field{ padding:10px 18px; border-bottom:1px solid var(--line); min-width:150px; }
+  .tb-field:last-child{ border-bottom:none; }
+  .tb-field .k{ color:var(--steel); letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px; }
+  .tb-field .v{ font-weight:600; }
+  @media (max-width:640px){
+    .tb-top{ grid-template-columns:1fr; }
+    .tb-fields{ border-left:none; border-top:1.5px solid var(--ink); flex-direction:row; flex-wrap:wrap; }
+    .tb-field{ flex:1 1 50%; border-right:1px solid var(--line); }
+  }
+
+  .hero-media{
+    border-top:1.5px solid var(--ink);
+    background:var(--white);
+  }
+  .hero-media img{ width:100%; display:block; }
+
+  .dim-line{
+    display:flex; align-items:center; gap:10px;
+    margin:56px 0 30px; color:var(--line-strong);
+  }
+  .dim-line::before, .dim-line::after{ content:""; flex:1; height:1px; background:var(--line-strong); }
+  .dim-label{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--steel); white-space:nowrap;
+  }
+
+  section{ padding-top:4px; }
+  h2{
+    font-family:var(--cond); font-weight:700; text-transform:uppercase;
+    font-size:clamp(1.4rem, 3vw, 1.8rem); margin-bottom:16px;
+  }
+  section p{ color:var(--ink-soft); max-width:65ch; }
+  section p + p{ margin-top:12px; }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5px;
+    background:var(--ink); border:1.5px solid var(--ink);
+    margin:24px 0 8px;
+  }
+  @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
+  .stat{ background:var(--white); padding:20px; }
+  .stat .num{ font-family:var(--cond); font-weight:700; font-size:2rem; color:var(--accent); }
+  .stat .label{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
+
+  .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .chip{
+    font-family:var(--mono); font-size:0.72rem; border:1px solid var(--line-strong);
+    padding:5px 10px; color:var(--ink-soft);
+  }
+
+  footer{
+    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:900px;
+    background:var(--white); padding:32px; text-align:center;
+  }
+  footer p{ color:var(--ink-soft); margin-bottom:16px; }
+  .pill{
+    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.03em;
+    border:1.5px solid var(--ink); padding:8px 14px;
+    text-decoration:none; display:inline-block;
+    transition:background 0.15s, color 0.15s;
+  }
+  .pill:hover{ background:var(--ink); color:var(--white); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="sheet">
+    <div class="nav-mark">E.TELLEZ<span>_</span>ME</div>
+    <a class="back-link" href="../index.html#projects">← Back to portfolio</a>
+  </div>
+</nav>
+
+<header class="title-block sheet" style="padding:0;">
+  <div class="tb-top">
+    <div class="tb-name">
+      <div class="eyebrow">Project Writeup</div>
+      <h1>Formula Electric Front-Wing</h1>
+      <p class="role">Aerodynamics &amp; Structural Engineer — Formula Electric at Berkeley</p>
+    </div>
+    <div class="tb-fields">
+      <div class="tb-field"><span class="k">Role</span><span class="v">Design Lead</span></div>
+      <div class="tb-field"><span class="k">Dates</span><span class="v">Oct 2025 — Present</span></div>
+      <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
+    </div>
+  </div>
+  <div class="hero-media">
+    <img src="../images/Fwing_Render.png" alt="Formula Electric front-wing mounting system CAD render" style="object-position: 75% center;">
+  </div>
+</header>
+
+<div class="sheet">
+  <div class="dim-line"><span class="dim-label">Overview</span></div>
+  <section>
+    <h2>The Problem</h2>
+    <p>Formula Electric's front wing generates a significant share of the car's downforce, but every gram in the mounting hardware is weight the car has to accelerate and brake against. The existing mounting system was over-built relative to its actual load cases, and the team needed a lighter design that still held up under race conditions without compromising safety margins.</p>
+  </section>
+
+  <div class="dim-line"><span class="dim-label">Results</span></div>
+  <section>
+    <div class="stat-row">
+      <div class="stat"><div class="num">33%</div><div class="label">Mounting Mass Cut</div></div>
+      <div class="stat"><div class="num">1.75</div><div class="label">Min. Factor of Safety</div></div>
+      <div class="stat"><div class="num">15%</div><div class="label">Total Wing Mass Reduced</div></div>
+    </div>
+  </section>
+
+  <div class="dim-line"><span class="dim-label">Approach</span></div>
+  <section>
+    <h2>Design &amp; Analysis</h2>
+    <p>I led the design and ANSYS structural analysis of the front-wing mounting system. Aerodynamic load data from the team's CFD and testing work was converted into discrete load cases and boundary conditions, which drove the FEA setup — making sure the mount could survive worst-case cornering and braking loads, not just steady-state running.</p>
+    <p>From there I iterated the mounting geometry to strip out unnecessary material while keeping the factor of safety above 1.75 across every load case, ultimately cutting mounting mass by 33%.</p>
+
+    <h2 style="margin-top:32px;">Manufacturing</h2>
+    <p>The redesigned aerodynamic components were manufactured in carbon fiber using layup preparation and resin infusion, bringing the total front-wing mass down by 15%. I also supported composite fabrication for other subteams working through the same manufacturing process.</p>
+
+    <div class="tool-chips">
+      <span class="chip">ANSYS Structural</span>
+      <span class="chip">FEA</span>
+      <span class="chip">SolidWorks</span>
+      <span class="chip">Carbon Fiber Layup</span>
+      <span class="chip">Resin Infusion</span>
+    </div>
+  </section>
+
+  <div class="dim-line"><span class="dim-label">Notes</span></div>
+  <section>
+    <h2>What I'd Do Differently</h2>
+    <p>[Optional — a line or two here on any tradeoffs, lessons learned, or what the next iteration would improve. This kind of reflection is often what separates a project blurb from a writeup a reviewer actually remembers.]</p>
+  </section>
+</div>
+
+<footer>
+  <p>Want more detail — CAD files, FEA reports, or photos from the car?</p>
+  <a class="pill" href="mailto:ernesto.tellez@berkeley.edu">Get in touch</a>
+</footer>
+
+</body>
+</html>
