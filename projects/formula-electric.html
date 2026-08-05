@@ -131,14 +131,21 @@
   .stat .label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
 
   .gallery{
-    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; align-items:start;
     margin:20px 0 8px;
   }
   @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
   .gallery figure{
     border:1.5px solid var(--ink); background:var(--white);
   }
-  .gallery img{ width:100%; display:block; border-bottom:1px solid var(--line); }
+  .gallery .img-frame{
+    aspect-ratio:4/3; background:var(--paper-alt);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; border-bottom:1px solid var(--line);
+  }
+  .gallery .img-frame img, .gallery .img-frame video{
+    width:100%; height:100%; object-fit:contain; display:block;
+  }
   .gallery figcaption{
     padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
     color:var(--ink-soft); line-height:1.4;
@@ -208,7 +215,7 @@
 
   <div class="gallery full" style="margin-bottom:24px;">
     <figure>
-      <img src="../images/formula-electric/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render">
+      <div class="img-frame"><img src="../images/formula-electric/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render"></div>
       <figcaption>Full front wing assembly — pylons, mounting hardware, and both aerodynamic elements.</figcaption>
     </figure>
   </div>
@@ -245,19 +252,19 @@
     <p>The front-wing pylon and mounting parts were designed using load cases from the wing's aerodynamic downforce and drag, along with the car's maximum acceleration, then refined through topology optimization and repeated FEA. For the pylon, material was removed from the low-stress areas in the center to create the open triangular shape, while keeping more material around the upper wing mounts, lower chassis mounts, and center junction where the loads travel through. The mounting ribs were optimized the same way, including removing the internal truss/spar between the upper and lower rails while keeping the areas around the pylon mounts, vertical supports, and bolt holes reinforced. The final designs had minimum factors of safety of 4.02 for the pylon, 3.20 for the rib, and 2.99 for the mounting bracket, all above our target of 1.75.</p>
     <div class="gallery">
       <figure>
-        <img src="../images/formula-electric/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
+        <div class="img-frame"><img src="../images/formula-electric/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon"></div>
         <figcaption>Equivalent (von-Mises) stress on the rear pylon — peak stress localized at the mounting bracket junction, well under the material's yield point.</figcaption>
       </figure>
       <figure>
-        <img src="../images/formula-electric/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon">
+        <div class="img-frame"><img src="../images/formula-electric/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon"></div>
         <figcaption>Resulting factor of safety on the same pylon — minimum 4.02, comfortably above the 1.75 team requirement.</figcaption>
       </figure>
       <figure>
-        <img src="../images/formula-electric/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket">
+        <div class="img-frame"><img src="../images/formula-electric/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket"></div>
         <figcaption>Mounting bracket safety factor check — minimum ~3.0 at the bolt holes, the highest-stress region.</figcaption>
       </figure>
       <figure>
-        <img src="../images/formula-electric/fe-rib-fos.png" alt="Factor of safety plot on the pylon mounting rib">
+        <div class="img-frame"><img src="../images/formula-electric/fe-rib-fos.png" alt="Factor of safety plot on the pylon mounting rib"></div>
         <figcaption>Pylon mounting rib safety factor check, after the internal truss/spar system was removed during optimization — minimum ~3.2.</figcaption>
       </figure>
     </div>
@@ -266,7 +273,7 @@
     <p>Before this, structural simulations across the aero team were mostly treated as one-and-done runs, without mesh convergence or much validation of the model setup. I began looking into how to properly validate the FEA, testing element sizes from 5 mm down to 0.5 mm and checking when the results stopped changing significantly. This also led me to improve how bolts, contacts, and boundary conditions were modeled to reduce artificial stress singularities and fix issues in the simulations. I then implemented this validation process across the front-wing structural analysis so the results could be trusted for design decisions.</p>
     <div class="gallery full">
       <figure>
-        <img src="../images/formula-electric/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
+        <div class="img-frame"><img src="../images/formula-electric/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing"></div>
         <figcaption>Mesh convergence study on the rear mounting U-channel — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
       </figure>
     </div>
@@ -277,11 +284,11 @@
     <p>The pylon mounts directly to the wing ribs using M4 bolts, which were sized up from the M3 hardware used on SN4 because the smaller bolts were not secure enough. Three mounting holes in the pylon allow the wing to be raised to different heights for different aerodynamic configurations. The pylon attaches to the chassis with knurled thumbscrews, allowing the entire front wing to be removed in under a minute without tools. The stiffness tethers connect directly to a small tab on the pylon, so they stay tensioned and do not need to be adjusted when the wing is removed. Using a simple mounting tab also kept the design easy to manufacture and assemble.</p>
     <div class="gallery">
       <figure>
-        <img src="../images/formula-electric/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
+        <div class="img-frame"><img src="../images/formula-electric/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element"></div>
         <figcaption>Pylon-to-wing mounting detail — clevis hardware and load path into the composite element.</figcaption>
       </figure>
       <figure>
-        <img src="../images/formula-electric/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware">
+        <div class="img-frame"><img src="../images/formula-electric/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware"></div>
         <figcaption>Adjustable rod-end hardware used for fine height and angle tuning between events.</figcaption>
       </figure>
     </div>
@@ -300,11 +307,11 @@
     <p>I completed several carbon fiber layups for the aero package, including bodywork side panels, the undertray, and the midplate and endplate sandwich panels. I worked with both resin infusion and wet layup processes, from preparing the fabric and core materials to laying up the parts, sealing the molds, and completing the cure. I also helped prepare and clean the molds before each layup to make sure the parts released properly and had a good surface finish.</p>
     <div class="gallery">
       <figure>
-        <img src="../images/formula-electric/fe-layup-1.png" alt="Resin infusion layup of a bodywork side panel">
+        <div class="img-frame"><img src="../images/formula-electric/fe-layup-1.png" alt="Resin infusion layup of a bodywork side panel"></div>
         <figcaption>Resin infusion layup of a bodywork side panel.</figcaption>
       </figure>
       <figure>
-        <img src="../images/formula-electric/fe-layup-2.png" alt="Nomex honeycomb sandwich panel layup">
+        <div class="img-frame"><img src="../images/formula-electric/fe-layup-2.png" alt="Nomex honeycomb sandwich panel layup"></div>
         <figcaption>Nomex honeycomb sandwich panel construction.</figcaption>
       </figure>
     </div>
@@ -315,7 +322,7 @@
     <p>Poster made for FSAE Electric at Michigan.</p>
     <div class="gallery full">
       <figure>
-        <img src="../images/formula-electric/fe-poster.png" alt="Design competition poster made for FSAE Electric at Michigan">
+        <div class="img-frame"><img src="../images/formula-electric/fe-poster.png" alt="Design competition poster made for FSAE Electric at Michigan"></div>
         <figcaption>Poster made for FSAE Electric at Michigan.</figcaption>
       </figure>
     </div>
