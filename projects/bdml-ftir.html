@@ -135,7 +135,14 @@
   @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
   .gallery.full{ grid-template-columns:1fr; }
   .gallery figure{ border:1.5px solid var(--ink); background:var(--white); }
-  .gallery img, .gallery video{ width:100%; display:block; border-bottom:1px solid var(--line); }
+  .gallery .img-frame{
+    aspect-ratio:4/3; background:var(--paper-alt);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; border-bottom:1px solid var(--line);
+  }
+  .gallery .img-frame img, .gallery .img-frame video{
+    width:100%; height:100%; object-fit:contain; display:block;
+  }
   .gallery figcaption{
     padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
     color:var(--ink-soft); line-height:1.4;
@@ -202,7 +209,7 @@
   <section>
     <div class="gallery full">
       <figure>
-        <img src="../images/bdml/bdml-ftir-setup.png" alt="FTIR imaging test bench built for gecko-inspired adhesive testing">
+        <div class="img-frame"><img src="../images/bdml/bdml-ftir-setup.png" alt="FTIR imaging test bench built for gecko-inspired adhesive testing"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
@@ -225,19 +232,19 @@
     <p>[Write your paragraph here about the 8×8 in. test bench — how it differs from the compact system, how it measures adhesive contact during engagement and failure, and how gravity-assisted loading was minimized.]</p>
     <div class="gallery">
       <figure>
-        <img src="../images/bdml/bdml-large-cad-1.png" alt="CAD render of the large-scale FTIR test bench enclosure">
+        <div class="img-frame"><img src="../images/bdml/bdml-large-cad-1.png" alt="CAD render of the large-scale FTIR test bench enclosure"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
       <figure>
-        <img src="../images/bdml/bdml-large-cad-2.png" alt="CAD render of the large-scale FTIR test bench enclosure, alternate view">
+        <div class="img-frame"><img src="../images/bdml/bdml-large-cad-2.png" alt="CAD render of the large-scale FTIR test bench enclosure, alternate view"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
       <figure>
-        <img src="../images/bdml/bdml-large-ftir-top.png" alt="Large-scale FTIR test bench built in the lab, top view">
+        <div class="img-frame"><img src="../images/bdml/bdml-large-ftir-top.png" alt="Large-scale FTIR test bench built in the lab, top view"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
       <figure>
-        <img src="../images/bdml/bdml-large-ftir.png" alt="Large-scale FTIR test bench built in the lab, side view">
+        <div class="img-frame"><img src="../images/bdml/bdml-large-ftir.png" alt="Large-scale FTIR test bench built in the lab, side view"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
@@ -248,11 +255,11 @@
     <p>[Write your paragraph here about the compact FTIR system — the design constraints, why it needed to fit within a 2 in. working distance, and what it was built to support (NASA TechLeap proposal).]</p>
     <div class="gallery">
       <figure>
-        <img src="../images/bdml/bdml-compact-cad.png" alt="CAD render of the compact FTIR system">
+        <div class="img-frame"><img src="../images/bdml/bdml-compact-cad.png" alt="CAD render of the compact FTIR system"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
       <figure>
-        <img src="../images/bdml/ftir-compact.png" alt="Compact FTIR system built in the lab">
+        <div class="img-frame"><img src="../images/bdml/ftir-compact.png" alt="Compact FTIR system built in the lab"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
@@ -263,24 +270,66 @@
     <p>[Write your paragraph here about the Python/OpenCV pipeline — lens distortion correction, ChArUco calibration, and how individual contact patches were measured from the images.]</p>
   </section>
 
+  <div class="dim-line"><span class="dim-label">Data</span></div>
+  <section>
+    <p>[Write your paragraph here about what this data shows — how contact develops from initial engagement through failure, and what the FTIR imaging reveals at each stage.]</p>
+
+    <h4>Initial Contact</h4>
+    <div class="gallery">
+      <figure>
+        <div class="img-frame"><img src="../images/bdml/bdml-data-initial-1.png" alt="FTIR imaging of initial adhesive contact"></div>
+        <figcaption>[Caption for this photo]</figcaption>
+      </figure>
+      <figure>
+        <div class="img-frame"><img src="../images/bdml/bdml-data-initial-2.png" alt="FTIR imaging of initial adhesive contact, second view"></div>
+        <figcaption>[Caption for this photo]</figcaption>
+      </figure>
+    </div>
+
+    <h4>During Engagement</h4>
+    <div class="gallery full">
+      <figure>
+        <div class="img-frame"><img src="../images/bdml/bdml-data-during.png" alt="FTIR imaging of adhesive contact during engagement"></div>
+        <figcaption>[Caption for this photo]</figcaption>
+      </figure>
+    </div>
+
+    <h4>Failure</h4>
+    <div class="gallery full">
+      <figure>
+        <div class="img-frame"><img src="../images/bdml/bdml-data-failure.png" alt="FTIR imaging of adhesive contact at failure"></div>
+        <figcaption>[Caption for this photo]</figcaption>
+      </figure>
+    </div>
+
+    <h4>Full Sequence</h4>
+    <div class="gallery full">
+      <figure>
+        <div class="img-frame"><video src="../images/bdml/bdml-data-video.mp4" controls></video></div>
+        <figcaption>[Caption for this video]</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <div class="dim-line"><span class="dim-label">Grippers</span></div>
   <section>
     <p>[Write your paragraph here about the gripper hardware — its role in the adhesive testing setup, how it interfaces with the FTIR systems, and any design considerations behind it.]</p>
     <div class="gallery">
       <figure>
-        <img src="../images/bdml/bdml-gripper.png" alt="Gripper hardware used in adhesive testing">
+        <div class="img-frame"><img src="../images/bdml/bdml-gripper.png" alt="Gripper hardware used in adhesive testing"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
   </section>
 
   <div class="dim-line"><span class="dim-label">Results</span></div>
+
   <section>
     <h3>Contact Detection</h3>
     <p>[Write your paragraph here about the contact detection results — what the visualization shows and what it revealed about adhesive performance.]</p>
     <div class="gallery full">
       <figure>
-        <img src="../images/bdml/bdml-contact-detection.png" alt="Contact detection visualization from FTIR imaging">
+        <div class="img-frame"><img src="../images/bdml/bdml-contact-detection.png" alt="Contact detection visualization from FTIR imaging"></div>
         <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
