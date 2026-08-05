@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula Electric at Berkeley — Ernesto Tellez Perez</title>
+<meta name="description" content="Aerodynamics and structural engineering work on Formula Electric at Berkeley's front wing program.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE9E0;
+    --paper-alt:#E4DFD3;
+    --ink:#23231F;
+    --ink-soft:#54524A;
+    --steel:#46626E;
+    --accent:#6B4C93;
+    --line:#B8B2A2;
+    --line-strong:#8C8676;
+    --white:#F8F6F1;
+
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --cond: 'IBM Plex Sans Condensed', system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
+      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:var(--white);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  .sheet{ max-width:960px; margin:0 auto; padding:0 24px; }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(237,233,224,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1.5px solid var(--ink);
+  }
+  nav .sheet{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; }
+  .nav-mark{ font-family:var(--mono); font-weight:600; font-size:0.85rem; letter-spacing:0.06em; }
+  .nav-mark span{ color:var(--accent); }
+  .back-link{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.04em;
+    text-transform:uppercase; text-decoration:none;
+    display:flex; align-items:center; gap:6px;
+  }
+  .back-link:hover{ color:var(--accent); }
+
+  header.title-block{
+    border:1.5px solid var(--ink);
+    margin:32px auto 0;
+    max-width:960px;
+    background:var(--white);
+  }
+  .tb-top{ display:grid; grid-template-columns:1fr auto; border-bottom:1.5px solid var(--ink); }
+  .tb-name{ padding:36px 32px 24px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.12em;
+    color:var(--steel); text-transform:uppercase; margin-bottom:14px;
+  }
+  h1{
+    font-family:var(--cond); font-weight:700;
+    font-size:clamp(2rem, 5vw, 3rem);
+    line-height:1.05; letter-spacing:-0.01em; text-transform:uppercase;
+  }
+  .role{ font-family:var(--mono); font-size:0.95rem; color:var(--ink-soft); margin-top:12px; }
+  .tb-fields{ display:flex; flex-direction:column; border-left:1.5px solid var(--ink); font-family:var(--mono); font-size:0.75rem; }
+  .tb-field{ padding:10px 18px; border-bottom:1px solid var(--line); min-width:150px; }
+  .tb-field:last-child{ border-bottom:none; }
+  .tb-field .k{ color:var(--steel); letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px; }
+  .tb-field .v{ font-weight:600; }
+  @media (max-width:640px){
+    .tb-top{ grid-template-columns:1fr; }
+    .tb-fields{ border-left:none; border-top:1.5px solid var(--ink); flex-direction:row; flex-wrap:wrap; }
+    .tb-field{ flex:1 1 50%; border-right:1px solid var(--line); }
+  }
+  .tb-bottom{ padding:22px 32px; }
+  .tb-bottom p{ color:var(--ink-soft); max-width:65ch; }
+
+  .hero-media{ border-top:1.5px solid var(--ink); background:var(--white); }
+  .hero-media img{ width:100%; display:block; }
+
+  .dim-line{
+    display:flex; align-items:center; gap:10px;
+    margin:56px 0 30px; color:var(--line-strong);
+  }
+  .dim-line::before, .dim-line::after{ content:""; flex:1; height:1px; background:var(--line-strong); }
+  .dim-label{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--steel); white-space:nowrap;
+  }
+
+  section{ padding-top:4px; }
+  h2{
+    font-family:var(--cond); font-weight:700; text-transform:uppercase;
+    font-size:clamp(1.4rem, 3vw, 1.8rem); margin-bottom:16px;
+  }
+  h3{
+    font-family:var(--cond); font-weight:700; text-transform:uppercase;
+    font-size:1.05rem; margin:22px 0 8px;
+  }
+  section p{ color:var(--ink-soft); max-width:65ch; }
+  section p + p{ margin-top:12px; }
+  section ul{ color:var(--ink-soft); max-width:65ch; padding-left:20px; margin-top:8px; }
+  section li{ margin-bottom:6px; }
+  section li strong{ color:var(--ink); }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5px;
+    background:var(--ink); border:1.5px solid var(--ink);
+    margin:24px 0 8px;
+  }
+  @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
+  .stat{ background:var(--white); padding:20px; }
+  .stat .num{ font-family:var(--cond); font-weight:700; font-size:1.9rem; color:var(--accent); }
+  .stat .label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
+
+  .gallery{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
+    margin:20px 0 8px;
+  }
+  @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
+  .gallery figure{
+    border:1.5px solid var(--ink); background:var(--white);
+  }
+  .gallery img{ width:100%; display:block; border-bottom:1px solid var(--line); }
+  .gallery figcaption{
+    padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
+    color:var(--ink-soft); line-height:1.4;
+  }
+  .gallery.full{ grid-template-columns:1fr; }
+
+  .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .chip{
+    font-family:var(--mono); font-size:0.72rem; border:1px solid var(--line-strong);
+    padding:5px 10px; color:var(--ink-soft);
+  }
+
+  .season-block{
+    border:1.5px solid var(--ink); background:var(--white);
+    margin:24px 0; padding:26px 28px;
+  }
+  .season-label{
+    font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:6px;
+  }
+
+  footer{
+    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:960px;
+    background:var(--white); padding:32px; text-align:center;
+  }
+  footer p{ color:var(--ink-soft); margin-bottom:16px; }
+  .pill{
+    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.03em;
+    border:1.5px solid var(--ink); padding:8px 14px;
+    text-decoration:none; display:inline-block;
+    transition:background 0.15s, color 0.15s;
+  }
+  .pill:hover{ background:var(--ink); color:var(--white); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="sheet">
+    <div class="nav-mark">E.TELLEZ<span>_</span>ME</div>
+    <a class="back-link" href="../index.html#projects">← Back to portfolio</a>
+  </div>
+</nav>
+
+<header class="title-block sheet" style="padding:0;">
+  <div class="tb-top">
+    <div class="tb-name">
+      <div class="eyebrow">Project — Ongoing</div>
+      <h1>Formula Electric at Berkeley</h1>
+      <p class="role">Aerodynamics &amp; Structural Engineer</p>
+    </div>
+    <div class="tb-fields">
+      <div class="tb-field"><span class="k">Team</span><span class="v">Aero / Structures</span></div>
+      <div class="tb-field"><span class="k">Started</span><span class="v">Oct 2025</span></div>
+      <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
+    </div>
+  </div>
+  <div class="tb-bottom">
+    <p>I design and structurally validate aerodynamic components for Berkeley's Formula SAE Electric car — currently focused on the front wing assembly, its mounting hardware, and the FEA work that keeps it light without giving up strength. This page is a running log of that work and will grow each season.</p>
+  </div>
+</header>
+
+<div class="sheet">
+
+  <!-- ===================== SEASON: 2025-26 ===================== -->
+  <div class="dim-line"><span class="dim-label">2025 – 26 Season · Front Wing</span></div>
+
+  <div class="gallery full" style="margin-bottom:24px;">
+    <figure>
+      <img src="../images/formula-electric/fe-assembly-full.png" alt="Full front wing assembly with pylons and mounting hardware, CAD render">
+      <figcaption>Full front wing assembly — pylons, mounting hardware, and both aerodynamic elements.</figcaption>
+    </figure>
+  </div>
+
+  <section>
+    <h2>Overview</h2>
+    <p>The front wing generates a significant share of the car's downforce, but every gram in the mounting hardware is weight the car has to accelerate and brake against. My work this season centered on redesigning the mounting system — the pylons, U-channels, and ribs that connect the wing to the chassis — to cut mass while holding a team-wide minimum factor of safety of 1.75.</p>
+  </section>
+
+  <section>
+    <h3>Results</h3>
+    <div class="stat-row">
+      <div class="stat"><div class="num">148 g</div><div class="label">Pylon Mass (from 250 g)</div></div>
+      <div class="stat"><div class="num">41%</div><div class="label">Pylon Mass Reduction</div></div>
+      <div class="stat"><div class="num">1.75+</div><div class="label">Min. Factor of Safety Held</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Design &amp; Mounting Strategy</h3>
+    <p>The wing mounts to the car only through the front element (FE1), removing the need for separate mounting ribs on the second element (FE2) and simplifying the load path. Mount height and the third element (FE3) are both adjustable, which lets the team tune center of pressure and upwash without a full redesign between events.</p>
+    <ul>
+      <li><strong>Pylons</strong> — 0.148 kg, a 41% mass reduction from the initial 250 g design, achieved through topology optimization. FOS: 3.6.</li>
+      <li><strong>Mounting U-channels</strong> — FOS: 2.4.</li>
+      <li><strong>Pylon mounting ribs</strong> — internal truss/spar system removed after optimization showed it wasn't load-bearing. FOS: 3.2.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Structural Analysis</h3>
+    <p>Every component went through static structural FEA in ANSYS before manufacturing — checking von-Mises stress against the material's yield strength, then confirming the resulting factor of safety cleared the team's 1.75 minimum with margin.</p>
+
+    <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:22px 0 10px;">Pylon &amp; Mounting</h4>
+    <p>The front-wing pylon and mounting parts were designed using load cases from the wing's aerodynamic downforce and drag, along with the car's maximum acceleration, then refined through topology optimization and repeated FEA. For the pylon, material was removed from the low-stress areas in the center to create the open triangular shape, while keeping more material around the upper wing mounts, lower chassis mounts, and center junction where the loads travel through. The mounting ribs were optimized the same way, including removing the internal truss/spar between the upper and lower rails while keeping the areas around the pylon mounts, vertical supports, and bolt holes reinforced. The final designs had minimum factors of safety of 4.02 for the pylon, 3.20 for the rib, and 2.99 for the mounting bracket, all above our target of 1.75.</p>
+    <div class="gallery">
+      <figure>
+        <img src="../images/formula-electric/fe-pylon-stress.png" alt="ANSYS equivalent von-Mises stress plot on the rear pylon">
+        <figcaption>Equivalent (von-Mises) stress on the rear pylon — peak stress localized at the mounting bracket junction, well under the material's yield point.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-pylon-fos.png" alt="ANSYS factor of safety plot on the rear pylon">
+        <figcaption>Resulting factor of safety on the same pylon — minimum 4.02, comfortably above the 1.75 team requirement.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-bracket-fos.png" alt="Factor of safety plot on a mounting bracket">
+        <figcaption>Mounting bracket safety factor check — minimum ~3.0 at the bolt holes, the highest-stress region.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-rib-fos.png" alt="Factor of safety plot on the pylon mounting rib">
+        <figcaption>Pylon mounting rib safety factor check, after the internal truss/spar system was removed during optimization — minimum ~3.2.</figcaption>
+      </figure>
+    </div>
+
+    <h4 style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin:26px 0 10px;">Mesh Convergence</h4>
+    <p>Before this, structural simulations across the aero team were mostly treated as one-and-done runs, without mesh convergence or much validation of the model setup. I began looking into how to properly validate the FEA, testing element sizes from 5 mm down to 0.5 mm and checking when the results stopped changing significantly. This also led me to improve how bolts, contacts, and boundary conditions were modeled to reduce artificial stress singularities and fix issues in the simulations. I then implemented this validation process across the front-wing structural analysis so the results could be trusted for design decisions.</p>
+    <div class="gallery full">
+      <figure>
+        <img src="../images/formula-electric/fe-mesh-convergence.png" alt="Mesh convergence chart for element sizing">
+        <figcaption>Mesh convergence study on the rear mounting U-channel — stress results stabilize across element sizes before the analysis is trusted for design decisions.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h3>Assembly &amp; Detail</h3>
+    <p>The pylon mounts directly to the wing ribs using M4 bolts, which were sized up from the M3 hardware used on SN4 because the smaller bolts were not secure enough. Three mounting holes in the pylon allow the wing to be raised to different heights for different aerodynamic configurations. The pylon attaches to the chassis with knurled thumbscrews, allowing the entire front wing to be removed in under a minute without tools. The stiffness tethers connect directly to a small tab on the pylon, so they stay tensioned and do not need to be adjusted when the wing is removed. Using a simple mounting tab also kept the design easy to manufacture and assemble.</p>
+    <div class="gallery">
+      <figure>
+        <img src="../images/formula-electric/fe-mount-closeup.png" alt="Close-up render of the pylon mounting hardware on the wing element">
+        <figcaption>Pylon-to-wing mounting detail — clevis hardware and load path into the composite element.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-clevis-detail.png" alt="Close-up render of the adjustable clevis and rod end hardware">
+        <figcaption>Adjustable rod-end hardware used for fine height and angle tuning between events.</figcaption>
+      </figure>
+    </div>
+
+    <div class="tool-chips">
+      <span class="chip">ANSYS Structural</span>
+      <span class="chip">Topology Optimization</span>
+      <span class="chip">SolidWorks</span>
+      <span class="chip">Carbon Fiber Layup</span>
+      <span class="chip">Resin Infusion</span>
+    </div>
+  </section>
+
+  <section>
+    <h3>Manufacturing</h3>
+    <p>I completed several carbon fiber layups for the aero package, including bodywork side panels, the undertray, and the midplate and endplate sandwich panels. I worked with both resin infusion and wet layup processes, from preparing the fabric and core materials to laying up the parts, sealing the molds, and completing the cure. I also helped prepare and clean the molds before each layup to make sure the parts released properly and had a good surface finish.</p>
+    <div class="gallery">
+      <figure>
+        <img src="../images/formula-electric/fe-layup-1.png" alt="Resin infusion layup of a bodywork side panel">
+        <figcaption>Resin infusion layup of a bodywork side panel.</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/formula-electric/fe-layup-2.png" alt="Nomex honeycomb sandwich panel layup">
+        <figcaption>Nomex honeycomb sandwich panel construction.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h3>Design Event Poster</h3>
+    <p>Poster made for FSAE Electric at Michigan.</p>
+    <div class="gallery full">
+      <figure>
+        <img src="../images/formula-electric/fe-poster.png" alt="Design competition poster made for FSAE Electric at Michigan">
+        <figcaption>Poster made for FSAE Electric at Michigan.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== NEXT SEASON GOES HERE ===================== -->
+  <!--
+  <div class="dim-line"><span class="dim-label">2026 – 27 Season · [Next Component]</span></div>
+  <div class="season-block">
+    <div class="season-label">In progress</div>
+    <p>Add next year's writeup here, following the same section structure above.</p>
+  </div>
+  -->
+
+</div>
+
+<footer>
+  <p>Want more detail — CAD files, FEA reports, or photos from the car?</p>
+  <a class="pill" href="mailto:ernesto.tellez@berkeley.edu">Get in touch</a>
+</footer>
+
+</body>
+</html>
