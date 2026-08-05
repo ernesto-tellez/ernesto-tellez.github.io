@@ -221,6 +221,12 @@
     display:flex; align-items:center; justify-content:center;
     font-family:var(--mono); font-size:0.7rem; color:var(--line-strong);
     letter-spacing:0.08em; text-transform:uppercase;
+    overflow:hidden;
+  }
+  .proj-media img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
   }
   .proj-body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1;}
   .proj-tag{
@@ -382,7 +388,7 @@
   <div class="projects-grid">
 
     <div class="proj-card">
-      <div class="proj-media">Drawing / Photo Placeholder</div>
+      <div class="proj-media"><img src="images/Fwing_Render.png" alt="Formula Electric front-wing mounting system CAD render"></div>
       <div class="proj-body">
         <div class="proj-tag">Aerodynamics &amp; Structures</div>
         <div class="proj-title">Formula Electric Front-Wing</div>
