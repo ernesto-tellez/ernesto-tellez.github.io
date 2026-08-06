@@ -225,7 +225,7 @@
   <div class="dim-line"><span class="dim-label">Overview</span></div>
   <section>
     <h2>What I Built</h2>
-    <p>[Write your paragraph here — an overview of the two systems, why two were needed, and how they fit into the lab's broader research goals.]</p>
+    <p>I built two FTIR imaging systems for different stages of the lab's research. The large-scale setup provided an 8 × 8 in. imaging area for testing gecko-inspired adhesives and observing how contact changed during engagement and failure. I also built a compact version for the lab's NASA TechLeap proposal, placing the camera within 2 in. of the glass while still capturing a 3 × 3 in. area within the payload's space constraints. The software supported both systems by correcting distortion and measuring the contact area of each adhesive pad over time.</p>
 
     <div class="stat-row">
       <div class="stat"><div class="num">8×8 in.</div><div class="label">Max Detectable Area — Large-Scale Bench (limits gripper/adhesive pad size)</div></div>
@@ -236,7 +236,7 @@
 
   <div class="dim-line"><span class="dim-label">Large-Scale Test Bench</span></div>
   <section>
-    <p>[Write your paragraph here about the 8×8 in. test bench — how it differs from the compact system, how it measures adhesive contact during engagement and failure, and how gravity-assisted loading was minimized.]</p>
+    <p>The larger FTIR test bench has an 8 × 8 in. imaging area, allowing larger grippers to be tested than with the compact system. The glass is mounted horizontally with the camera overhead and the grippers engaging upside down, preventing gravity from helping press them into the surface.</p>
     <div class="gallery">
       <figure>
         <div class="img-frame"><img src="../images/bdml/bdml-large-cad-1.png" alt="CAD render of the large-scale FTIR test bench enclosure"></div>
@@ -259,7 +259,7 @@
 
   <div class="dim-line"><span class="dim-label">Compact FTIR System</span></div>
   <section>
-    <p>[Write your paragraph here about the compact FTIR system — the design constraints, why it needed to fit within a 2 in. working distance, and what it was built to support (NASA TechLeap proposal).]</p>
+    <p>I built a compact FTIR system for the lab's NASA TechLeap proposal, where the camera had to fit within 2 in. of the glass while still seeing the full 3 × 3 in. contact area. The setup was suspended on springs to try to mimic something free-floating and give it several degrees of freedom within a controlled range.</p>
     <div class="gallery">
       <figure>
         <div class="img-frame"><img src="../images/bdml/bdml-compact-cad.png" alt="CAD render of the compact FTIR system"></div>
@@ -274,7 +274,8 @@
 
   <div class="dim-line"><span class="dim-label">Image Processing &amp; Calibration</span></div>
   <section>
-    <p>[Write your paragraph here about the Python/OpenCV pipeline — lens distortion correction, ChArUco calibration, and how individual contact patches were measured from the images.]</p>
+    <p>Lens distortion was corrected using a standard OpenCV camera calibration pipeline. A ChArUco board, combining a checkerboard with uniquely identifiable ArUco markers, was recorded from multiple angles. Because each marker is independently identifiable, corners could still be detected when the board was partially blocked or outside the frame. The detected image points and known board geometry were passed into <code>cv2.calibrateCamera</code> to calculate the camera's intrinsic matrix and distortion coefficients. These values were used to create a fixed undistortion map for every frame, followed by an edge crop to remove unreliable border regions.</p>
+    <p>The corrected frames were converted to HSV color space and thresholded for the blue and cyan hues produced by frustrated total internal reflection at the adhesive interface. A tiered hysteresis method used weak, core, and strong saturation and value thresholds to classify pixels as possible, probable, or strong contact, reducing noise while preserving faint contact edges. Within user-defined regions of interest around each pad, connected-component analysis grouped the thresholded pixels into separate contact fragments. A millimeter-per-pixel scale, established using a reference of known length, converted each fragment's pixel area into mm². The measured area was then compared with the pad's expected area to calculate percent coverage for each pad in every frame.</p>
 
     <h4>Detection Tool</h4>
     <div class="gallery full">
@@ -315,7 +316,7 @@
 
   <div class="dim-line"><span class="dim-label">Data</span></div>
   <section>
-    <p>[Write your paragraph here about what this data shows — how contact develops from initial engagement through failure, and what the FTIR imaging reveals at each stage.]</p>
+    <p>The FTIR data shows how contact changes from initial engagement through failure. It captures where contact first forms, how it spreads across the adhesive pads as load is applied, and where contact is lost as the adhesive begins to detach. This makes it possible to compare how evenly each pad engages and identify the regions where failure starts and progresses.</p>
 
     <h4>Initial Contact</h4>
     <div class="gallery">
@@ -350,17 +351,6 @@
       <figure>
         <div class="img-frame"><video src="../images/bdml/adhesive_contact.mp4" autoplay loop muted playsinline controls></video></div>
         <figcaption>Full engagement and failure of gripper.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Grippers</span></div>
-  <section>
-    <p>[Write your paragraph here about the gripper hardware — its role in the adhesive testing setup, how it interfaces with the FTIR systems, and any design considerations behind it.]</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-gripper.png" alt="Gripper hardware used in adhesive testing"></div>
-        <figcaption>[Caption for this photo]</figcaption>
       </figure>
     </div>
   </section>
