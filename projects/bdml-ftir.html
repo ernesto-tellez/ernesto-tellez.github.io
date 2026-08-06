@@ -134,6 +134,10 @@
   }
   @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
   .gallery.full{ grid-template-columns:1fr; }
+  .gallery.full .img-frame img, .gallery.full .img-frame video{
+    width:100%; height:auto; max-height:none;
+  }
+
   .gallery figure{
     border:1.5px solid var(--ink); background:var(--white);
     display:flex; flex-direction:column;
@@ -344,7 +348,7 @@
     <h4>Full Sequence</h4>
     <div class="gallery full">
       <figure>
-        <div class="img-frame"><video src="../images/bdml/adhesive_contact.mp4" controls></video></div>
+        <div class="img-frame"><video src="../images/bdml/adhesive_contact.mp4" autoplay loop muted playsinline controls></video></div>
         <figcaption>[Caption for this video]</figcaption>
       </figure>
     </div>
