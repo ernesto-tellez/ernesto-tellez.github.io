@@ -152,6 +152,10 @@
     color:var(--ink-soft); line-height:1.4;
   }
   .gallery.full{ grid-template-columns:1fr; }
+  .gallery.full .img-frame img, .gallery.full .img-frame video{
+    width:100%; height:auto; max-height:none;
+  }
+
 
   .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
   .chip{
@@ -341,7 +345,7 @@
 </div>
 
 <footer>
-  <p>Want more detail — CAD files, FEA reports, or photos from the car?</p>
+  <p>Excited to talk more about this project.</p>
   <a class="pill" href="mailto:ernesto.tellez@berkeley.edu">Get in touch</a>
 </footer>
 
