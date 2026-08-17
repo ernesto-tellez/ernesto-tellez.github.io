@@ -188,42 +188,62 @@
     <div class="tb-name">
       <div class="eyebrow">Project — E29, UC Berkeley</div>
       <h1>Bolt Sorter</h1>
-      <p class="role">[Your role — e.g. Design Team]</p>
+      <p class="role">Mechanism Design &amp; GD&amp;T</p>
     </div>
     <div class="tb-fields">
       <div class="tb-field"><span class="k">Class</span><span class="v">E29</span></div>
-      <div class="tb-field"><span class="k">Dates</span><span class="v">[Dates]</span></div>
+      <div class="tb-field"><span class="k">Dates</span><span class="v">Feb 2026 — May 2026</span></div>
       <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
     </div>
   </div>
   <div class="tb-bottom">
-    <p>[Write your intro paragraph here — what problem the sorter solves, and the basic idea behind how it works.]</p>
+    <p>This mechanism sorts bolts by head size using gravity and a gap-based channel, without any electronics or sensors — bolts simply fall through until the gap gets too narrow for them to pass.</p>
     <div class="tool-chips" style="margin-top:16px;">
-      <span class="chip">CAD</span>
+      <span class="chip">OnShape</span>
+      <span class="chip">GD&amp;T</span>
       <span class="chip">Mechanism Design</span>
     </div>
-  </div>
-  <div class="hero-media">
-    <img src="../images/bolt-sorter/bolt_sorter.png" alt="Bolt sorter mechanism, showing a size-graded channel and hand-crank feed">
   </div>
 </header>
 
 <div class="sheet">
 
+  <div class="dim-line"><span class="dim-label">Final Assembly</span></div>
+  <section>
+    <div class="gallery full">
+      <figure>
+        <div class="img-frame"><img src="../images/bolt-sorter/bolt_sorter.png" alt="Bolt sorter mechanism, showing a size-graded channel and hand-crank feed"></div>
+        <figcaption>[Caption for this photo]</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <div class="dim-line"><span class="dim-label">Overview</span></div>
   <section>
     <h2>What I Built</h2>
-    <p>[Write your paragraph here — how the mechanism sorts bolts, what sizes it handles (M2, M2.5, M3, etc.), and what makes it work without electronics or sensors.]</p>
+    <p>The sorting channel starts narrow and widens further along its length based on head size, so smaller bolts (M2.0) drop through early while larger ones (M2.5, M3.0, and beyond) travel further before falling into their slot. The labeled sizes shown are the current range, but the channel geometry is parametric in CAD, so it can be resized to sort a different range of bolts without redesigning the mechanism from scratch.</p>
   </section>
 
   <div class="dim-line"><span class="dim-label">Mechanism Design</span></div>
   <section>
-    <p>[Write your paragraph here about how the sorting channel and gate/crank mechanism work together — what determines which bolt falls into which slot.]</p>
+    <p>This was a team project, and my role was designing the feed mechanism — a hand crank at the top that converts rotary motion into linear motion, feeding bolts into the channel at a controlled rate of about 1 to 3 bolts per rotation. I also produced the GD&amp;T drawings for the assembly. Most of the design iteration happened here, tuning the crank geometry and feed rate until bolts moved through consistently without jamming.</p>
+
+    <h4>GD&amp;T Drawings</h4>
+    <div class="gallery">
+      <figure>
+        <div class="img-frame"><img src="../images/bolt-sorter/gdt-feeder-support-box.png" alt="GD&T drawing of the Feeder Support Box"></div>
+        <figcaption>Feeder Support Box — position and parallelism callouts on the sorting channel.</figcaption>
+      </figure>
+      <figure>
+        <div class="img-frame"><img src="../images/bolt-sorter/gdt-main-feeder.png" alt="GD&T drawing of the Main Feeder"></div>
+        <figcaption>Main Feeder — position, straightness, and angularity callouts on the crank mechanism.</figcaption>
+      </figure>
+    </div>
   </section>
 
   <div class="dim-line"><span class="dim-label">Manufacturing</span></div>
   <section>
-    <p>[Write your paragraph here about how it was built — materials, processes, and any iterations along the way.]</p>
+    <p>Every part was 3D printed and assembled using clearance and press fits.</p>
   </section>
 
 </div>
