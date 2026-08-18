@@ -137,6 +137,20 @@
   }
   @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
   .gallery.full{ grid-template-columns:1fr; }
+  .gallery.side-bars{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
+  }
+  @media (max-width:640px){ .gallery.side-bars{ grid-template-columns:1fr; } }
+  .gallery.side-bars figure{
+    border:1.5px solid var(--ink); background:var(--white);
+  }
+  .gallery.side-bars .img-frame{
+    height:220px; background:var(--paper-alt);
+    overflow:hidden; border-bottom:1px solid var(--line);
+  }
+  .gallery.side-bars .img-frame img{
+    width:100%; height:100%; object-fit:contain; display:block;
+  }
   .gallery.full .img-frame img, .gallery.full .img-frame video{
     width:100%; height:auto; max-height:none;
   }
@@ -229,7 +243,7 @@
     <p>This was a team project, and my role was designing the feed mechanism — a hand crank at the top that converts rotary motion into linear motion, feeding bolts into the channel at a controlled rate of about 1 to 3 bolts per rotation. I also produced the GD&amp;T drawings for the assembly. Most of the design iteration happened here, tuning the crank geometry and feed rate until bolts moved through consistently without jamming.</p>
 
     <h4>CAD Renders</h4>
-    <div class="gallery">
+    <div class="gallery side-bars">
       <figure>
         <div class="img-frame"><img src="../images/bolt-sorter/bolt_3d_view.png" alt="Full CAD assembly of the bolt sorter"></div>
         <figcaption>Full CAD assembly, showing the sorting channel and crank mechanism.</figcaption>
