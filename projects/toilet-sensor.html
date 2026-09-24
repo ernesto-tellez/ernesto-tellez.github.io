@@ -3,291 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plug-&-Forget Smart Health Toilet Sensor — Ernesto Tellez Perez</title>
-<meta name="description" content="A clip-on smart toilet sensor for daily renal and metabolic health monitoring via pH and urine-color analysis.">
+<title>PRISM Toilet Sensor — Ernesto Tellez Perez</title>
+<meta name="description" content="PRISM, a clip-on toilet sensor for passive hydration and pH tracking. Best Prototype and People's Choice at the PREP/T-PREP Design Expo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#EDE9E0;
-    --paper-alt:#E4DFD3;
-    --ink:#23231F;
-    --ink-soft:#54524A;
-    --steel:#46626E;
-    --accent:#6B4C93;
-    --line:#B8B2A2;
-    --line-strong:#8C8676;
-    --white:#F8F6F1;
+  :root { --text:#1b1b1b; --muted:#6b6b6b; --link:#5a3d8a; --rule:#e4e4e4; }
+  body { margin:0; background:#fff; color:var(--text); font:17px/1.6 Lato, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 20px 64px; }
+  a { color:var(--link); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .crumb { font-size:15px; color:var(--muted); margin:0 0 28px; }
+  h1 { font-size:34px; font-weight:400; line-height:1.25; margin:0 0 8px; }
+  h2 { font-size:23px; font-weight:400; margin:48px 0 10px; }
+  h3 { font-size:18px; font-weight:700; margin:30px 0 8px; }
+  p { margin:0 0 14px; }
+  ul { margin:0 0 14px; padding-left:22px; }
+  li { margin:0 0 6px; }
+  code { font-size:15px; background:#f3f3f3; padding:1px 4px; }
+  .meta { color:var(--muted); margin:0 0 22px; }
 
-    --mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --sans: 'IBM Plex Sans', system-ui, sans-serif;
-    --cond: 'IBM Plex Sans Condensed', system-ui, sans-serif;
-  }
+  figure { margin:18px 0 24px; }
+  figure img, figure video { display:block; max-width:100%; height:auto; }
+  figure video { width:100%; }
+  figcaption { font-size:14px; color:var(--muted); line-height:1.45; margin-top:6px; }
+  .row { display:flex; gap:14px; align-items:flex-start; margin:18px 0 24px; }
+  .row figure { flex:1 1 0; min-width:0; margin:0; }
+  .row figure img, .row figure video { width:100%; }
+  img.zoom { cursor:zoom-in; }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  footer { margin-top:56px; padding-top:16px; border-top:1px solid var(--rule); font-size:15px; color:var(--muted); }
+  footer p { margin:0 0 6px; }
 
-  body{
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
-      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
-      var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+  @media (max-width:640px) {
+    .wrap { padding-top:28px; }
+    .row { flex-direction:column; }
+    .row figure { flex:none !important; width:100%; }
   }
-
-  a{color:inherit;}
-  ::selection{background:var(--accent); color:var(--white);}
-  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
-
-  .sheet{ max-width:960px; margin:0 auto; padding:0 24px; }
-
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(237,233,224,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1.5px solid var(--ink);
-  }
-  nav .sheet{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; }
-  .nav-mark{ font-family:var(--mono); font-weight:600; font-size:0.85rem; letter-spacing:0.06em; }
-  .nav-mark span{ color:var(--accent); }
-  .back-link{
-    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.04em;
-    text-transform:uppercase; text-decoration:none;
-    display:flex; align-items:center; gap:6px;
-  }
-  .back-link:hover{ color:var(--accent); }
-
-  header.title-block{
-    border:1.5px solid var(--ink);
-    margin:32px auto 0;
-    max-width:960px;
-    background:var(--white);
-  }
-  .tb-top{ display:grid; grid-template-columns:1fr auto; border-bottom:1.5px solid var(--ink); }
-  .tb-name{ padding:36px 32px 24px; }
-  .eyebrow{
-    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.12em;
-    color:var(--steel); text-transform:uppercase; margin-bottom:14px;
-  }
-  h1{
-    font-family:var(--cond); font-weight:700;
-    font-size:clamp(1.8rem, 4.6vw, 2.8rem);
-    line-height:1.08; letter-spacing:-0.01em; text-transform:uppercase;
-  }
-  .role{ font-family:var(--mono); font-size:0.95rem; color:var(--ink-soft); margin-top:12px; }
-  .tb-fields{ display:flex; flex-direction:column; border-left:1.5px solid var(--ink); font-family:var(--mono); font-size:0.75rem; }
-  .tb-field{ padding:10px 18px; border-bottom:1px solid var(--line); min-width:150px; }
-  .tb-field:last-child{ border-bottom:none; }
-  .tb-field .k{ color:var(--steel); letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px; }
-  .tb-field .v{ font-weight:600; }
-  @media (max-width:640px){
-    .tb-top{ grid-template-columns:1fr; }
-    .tb-fields{ border-left:none; border-top:1.5px solid var(--ink); flex-direction:row; flex-wrap:wrap; }
-    .tb-field{ flex:1 1 50%; border-right:1px solid var(--line); }
-  }
-  .tb-bottom{ padding:22px 32px; }
-  .tb-bottom p{ color:var(--ink-soft); max-width:none; }
-
-  .dim-line{
-    display:flex; align-items:center; gap:10px;
-    margin:56px 0 30px; color:var(--line-strong);
-  }
-  .dim-line::before, .dim-line::after{ content:""; flex:1; height:1px; background:var(--line-strong); }
-  .dim-label{
-    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em;
-    text-transform:uppercase; color:var(--steel); white-space:nowrap;
-  }
-
-  section{ padding-top:4px; }
-  h2{
-    font-family:var(--cond); font-weight:700; text-transform:uppercase;
-    font-size:clamp(1.4rem, 3vw, 1.8rem); margin-bottom:16px;
-  }
-  h3{
-    font-family:var(--cond); font-weight:700; text-transform:uppercase;
-    font-size:1.05rem; margin:22px 0 8px;
-  }
-  h4{
-    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--steel); margin:22px 0 10px;
-  }
-  section p{ color:var(--ink-soft); max-width:none; }
-  section p + p{ margin-top:12px; }
-
-  .stat-row{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5px;
-    background:var(--ink); border:1.5px solid var(--ink);
-    margin:24px 0 8px;
-  }
-  @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
-  .stat{ background:var(--white); padding:20px; }
-  .stat .num{ font-family:var(--cond); font-weight:700; font-size:1.7rem; color:var(--accent); }
-  .stat .label{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
-
-  .gallery{
-    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
-    margin:20px 0 8px;
-  }
-  @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
-  .gallery.full{ grid-template-columns:1fr; }
-  .gallery.full .img-frame img, .gallery.full .img-frame video{
-    width:100%; height:auto; max-height:none;
-  }
-  .gallery figure{ border:1.5px solid var(--ink); background:var(--white); display:flex; flex-direction:column; }
-  .gallery .img-frame{
-    flex:1; min-height:0; background:var(--paper-alt);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden; border-bottom:1px solid var(--line);
-  }
-  .gallery .img-frame img, .gallery .img-frame video{
-    max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;
-  }
-  .gallery figcaption{
-    padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
-    color:var(--ink-soft); line-height:1.4;
-  }
-
-  .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-  .chip{
-    font-family:var(--mono); font-size:0.72rem; border:1px solid var(--line-strong);
-    padding:5px 10px; color:var(--ink-soft);
-  }
-
-  footer{
-    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:960px;
-    background:var(--white); padding:32px; text-align:center;
-  }
-  footer p{ color:var(--ink-soft); margin-bottom:16px; }
-  .pill{
-    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.03em;
-    border:1.5px solid var(--ink); padding:8px 14px;
-    text-decoration:none; display:inline-block;
-    transition:background 0.15s, color 0.15s;
-  }
-  .pill:hover{ background:var(--ink); color:var(--white); }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<nav>
-  <div class="sheet">
-    <div class="nav-mark">E.TELLEZ<span>_</span>ME</div>
-    <a class="back-link" href="../index.html#projects">← Back to portfolio</a>
+  <p class="crumb"><a href="../index.html">Ernesto Tellez Perez</a> / <a href="../index.html#projects">Projects</a></p>
+
+  <h1>PRISM: Plug-&amp;-Forget Smart Health Toilet Sensor</h1>
+  <p class="meta">PREP/T-PREP Design Expo · Design team; housing, assembly, and manufacturing · Jul – Aug 2025<br>
+  Tools: OnShape, 3D printing, laser cutting · <b style="color:#a3261b">Best Prototype and People's Choice</b></p>
+
+  <p>Chronic kidney disease affects around 850 million people worldwide, and catching it early can depend on noticing changes in hydration and urine chemistry before symptoms show up. A toilet-mounted sensor makes it possible to collect this data passively without requiring users to change their routine or test themselves manually.</p>
+
+  <h2>What I built</h2>
+  <p>Our team built PRISM, a clip-on device that mounts to a toilet seat and passively tracks hydration and pH using color and pH sensors. I designed the housing in OnShape, assembled the prototype around both sensors, and manufactured the parts using 3D printing and laser cutting. While existing hydration trackers can cost $300–500+ and may require disposable cartridges, our prototype cost under $50 and also included app integration and more urine chemistry data.</p>
+
+  <h2>Housing and CAD design</h2>
+  <p>The clip is designed to hook over the toilet rim underneath the seat. The current prototype is not mounted that way yet, but that is the intended final setup. All of the electronics are enclosed inside the housing, with acrylic covers making the unit splashproof. Size was not a main concern for this prototype, so it is larger than a final version would need to be. The housing is angled so the sensors point in the right direction for an average toilet, while the pH sensor can be adjusted vertically to account for different water levels. The entire unit can also be lifted straight out and reattached without any tools.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_Clip.png" alt="CAD of the toilet clip">
+      <figcaption>The clip, dimensioned to fit an average toilet seat.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_general_housing.png" alt="CAD of the main housing">
+      <figcaption>Main housing. I didn't design this enclosure, but designed the logo and the laser-cut, engraved cover for it.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_sensor_housing.png" alt="CAD of the splashproof sensor housing">
+      <figcaption>Splashproof sensor housing. The laser-cut cover and engraving aren't shown in CAD.</figcaption>
+    </figure>
   </div>
-</nav>
 
-<header class="title-block sheet" style="padding:0;">
-  <div class="tb-top">
-    <div class="tb-name">
-      <div class="eyebrow">Project — Awarded</div>
-      <h1>Plug-&amp;-Forget Smart Health Toilet Sensor</h1>
-      <p class="role">Design Team</p>
-    </div>
-    <div class="tb-fields">
-      <div class="tb-field"><span class="k">Role</span><span class="v">Design Team</span></div>
-      <div class="tb-field"><span class="k">Dates</span><span class="v">July 2025 — Aug 2025</span></div>
-      <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
-    </div>
+  <h2>Assembly</h2>
+  <p>Assembly took a few iterations because the housing and 3D-printed parts were designed before we had the actual sensors and electronics. The first prints were too large, so I resized the parts once we had the real dimensions. 3D printing was chosen for this stage because it allowed for rapid, low-cost prototyping while we worked through those iterations. After that, the electronics were bolted into place inside the housing, and the acrylic covers were glued on to keep the unit splashproof.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_sideview_labeled.png" alt="Side view of the prototype showing the hook onto the toilet seat">
+      <figcaption>The hook that mounts onto the toilet seat.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_sensors_labeled.png" alt="Top view showing the color and pH sensors">
+      <figcaption>Color sensor and pH sensor.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_front_labeled.png" alt="Front view showing the breadboard and Arduino">
+      <figcaption>Breadboard and Arduino inside the main housing.</figcaption>
+    </figure>
   </div>
-  <div class="tb-bottom">
-    <p>Chronic kidney disease affects around 850 million people worldwide, and catching it early can depend on noticing changes in hydration and urine chemistry before symptoms show up. A toilet-mounted sensor makes it possible to collect this data passively without requiring users to change their routine or test themselves manually.</p>
-    <div class="tool-chips" style="margin-top:16px;">
-      <span class="chip">OnShape</span>
-      <span class="chip">3D Printing</span>
-      <span class="chip">Laser Cutting</span>
-      <span class="chip">Sensors</span>
-    </div>
+
+  <h2>Laser cutting</h2>
+  <p>I laser cut two acrylic covers, one for the electronics housing and one for the color sensor housing, and sealed both to keep them splashproof. I also designed the PRISM logo and engraved it directly onto the electronics cover.</p>
+  <figure>
+      <img src="../images/toilet-sensor/Tprep_front.png" alt="Laser-cut acrylic cover with the engraved PRISM logo">
+      <figcaption>Large acrylic cover for the electronics, with the logo engraving.</figcaption>
+    </figure>
+
+  <h2>Design expo and awards</h2>
+  <p>I presented a prototype to 100+ industry and academic professionals at the PREP/TPREP Design Expo. We were awarded People's Choice and Best Prototype.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_best_proto.jpg" alt="Best Prototype award certificate">
+      <figcaption>Best Prototype, PREP/T-PREP Design Expo.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/toilet-sensor/TPrep_Ppl_choice.jpg" alt="People's Choice award certificate">
+      <figcaption>People's Choice, PREP/T-PREP Design Expo.</figcaption>
+    </figure>
   </div>
-</header>
 
-<div class="sheet">
-
-  <div class="dim-line"><span class="dim-label">Overview</span></div>
-  <section>
-    <h2>What I Built</h2>
-    <p>Our team built PRISM, a clip-on device that mounts to a toilet seat and passively tracks hydration and pH using color and pH sensors. I designed the housing in OnShape, assembled the prototype around both sensors, and manufactured the parts using 3D printing and laser cutting. While existing hydration trackers can cost $300–500+ and may require disposable cartridges, our prototype cost under $50 and also included app integration and more urine chemistry data.</p>
-
-    <div class="stat-row">
-      <div class="stat"><div class="num">2</div><div class="label">Sensors Integrated</div></div>
-      <div class="stat"><div class="num">100+</div><div class="label">Professionals at Expo</div></div>
-      <div class="stat"><div class="num">2</div><div class="label">Awards Won</div></div>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Housing &amp; CAD Design</span></div>
-  <section>
-    <p>The clip is designed to hook over the toilet rim underneath the seat. The current prototype is not mounted that way yet, but that is the intended final setup. All of the electronics are enclosed inside the housing, with acrylic covers making the unit splashproof. Size was not a main concern for this prototype, so it is larger than a final version would need to be. The housing is angled so the sensors point in the right direction for an average toilet, while the pH sensor can be adjusted vertically to account for different water levels. The entire unit can also be lifted straight out and reattached without any tools.</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_Clip.png" alt="CAD model of the toilet clip"></div>
-        <figcaption>CAD of the clip that mounts to the toilet, dimensioned to fit an average toilet seat found online.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_general_housing.png" alt="CAD model of the general housing"></div>
-        <figcaption>CAD of the main housing. I didn't design this enclosure, but designed the logo and laser-cut, engraved cover for it.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_sensor_housing.png" alt="CAD model of the small splashproof sensor housing"></div>
-        <figcaption>CAD of the small, splashproof sensor housing. The laser cutting and engraving aren't shown here but are part of the final piece.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Assembly</span></div>
-  <section>
-    <p>Assembly took a few iterations because the housing and 3D-printed parts were designed before we had the actual sensors and electronics. The first prints were too large, so I resized the parts once we had the real dimensions. 3D printing was chosen for this stage because it allowed for rapid, low-cost prototyping while we worked through those iterations. After that, the electronics were bolted into place inside the housing, and the acrylic covers were glued on to keep the unit splashproof.</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_sideview_labeled.png" alt="Side view of the fully assembled PRISM prototype, labeled showing the hook that mounts onto the toilet seat"></div>
-        <figcaption>Hook that mounts onto the toilet seat.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_sensors_labeled.png" alt="Top view showing the color sensor and pH sensor"></div>
-        <figcaption>Color sensor and pH sensor.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_front_labeled.png" alt="Internal electronics showing the breadboard and Arduino"></div>
-        <figcaption>Breadboard and Arduino inside the main housing.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Laser Cutting</span></div>
-  <section>
-    <p>I laser cut two acrylic covers, one for the electronics housing and one for the color sensor housing, and sealed both to keep them splashproof. I also designed the PRISM logo and engraved it directly onto the electronics cover.</p>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/Tprep_front.png" alt="Back view showing the laser-cut, engraved PRISM cover and internal electronics"></div>
-        <figcaption>Large acrylic cover for electronics with logo engraving.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Design Expo &amp; Awards</span></div>
-  <section>
-    <p>I presented a prototype to 100+ industry and academic professionals at the PREP/TPREP Design Expo. We were awarded People's Choice and Best Prototype.</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_best_proto.jpg" alt="Best Prototype Award certificate"></div>
-        <figcaption>Best Prototype Award, PREP/T-PREP Design Expo.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/toilet-sensor/TPrep_Ppl_choice.jpg" alt="People's Choice Award certificate"></div>
-        <figcaption>People's Choice Award, PREP/T-PREP Design Expo.</figcaption>
-      </figure>
-    </div>
-  </section>
+  <footer>
+    <p>Excited to talk more about this project. <a href="mailto:ernesto.tellez@berkeley.edu">ernesto.tellez@berkeley.edu</a></p>
+    <p><a href="../index.html">&larr; Back to all projects</a></p>
+  </footer>
 
 </div>
-
-<footer>
-  <p>Excited to talk more about this project.</p>
-  <a class="pill" href="mailto:ernesto.tellez@berkeley.edu">Get in touch</a>
-</footer>
-
+<script>
+  // Images side by side in a row share one height with no cropping:
+  // each figure's width is set in proportion to its image's shape.
+  document.querySelectorAll('.row img, .row video').forEach(function (m) {
+    function size() {
+      var w = m.naturalWidth || m.videoWidth, h = m.naturalHeight || m.videoHeight;
+      if (w && h) m.closest('figure').style.flex = (w / h) + ' 1 0';
+    }
+    if (m.tagName === 'IMG') { m.complete ? size() : m.addEventListener('load', size); }
+    else { m.readyState >= 1 ? size() : m.addEventListener('loadedmetadata', size); }
+  });
+  // Click any image to open it full size.
+  document.querySelectorAll('figure img').forEach(function (img) {
+    img.classList.add('zoom');
+    img.addEventListener('click', function () { window.open(img.src, '_blank'); });
+  });
+</script>
 </body>
 </html>
