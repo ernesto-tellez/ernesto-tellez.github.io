@@ -3,383 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gecko-Inspired Adhesive Testing — Stanford BDML — Ernesto Tellez Perez</title>
-<meta name="description" content="FTIR imaging systems built to test gecko-inspired adhesives for space robotics research, Stanford Biomimetics and Dexterous Manipulation Lab.">
+<title>Gecko-Inspired Adhesive Testing — Ernesto Tellez Perez</title>
+<meta name="description" content="FTIR imaging systems built to measure gecko-inspired adhesive contact for space robotics research at Stanford BDML.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#EDE9E0;
-    --paper-alt:#E4DFD3;
-    --ink:#23231F;
-    --ink-soft:#54524A;
-    --steel:#46626E;
-    --accent:#6B4C93;
-    --line:#B8B2A2;
-    --line-strong:#8C8676;
-    --white:#F8F6F1;
+  :root { --text:#1b1b1b; --muted:#6b6b6b; --link:#5a3d8a; --rule:#e4e4e4; }
+  body { margin:0; background:#fff; color:var(--text); font:17px/1.6 Lato, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 20px 64px; }
+  a { color:var(--link); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .crumb { font-size:15px; color:var(--muted); margin:0 0 28px; }
+  h1 { font-size:34px; font-weight:400; line-height:1.25; margin:0 0 8px; }
+  h2 { font-size:23px; font-weight:400; margin:48px 0 10px; }
+  h3 { font-size:18px; font-weight:700; margin:30px 0 8px; }
+  p { margin:0 0 14px; }
+  ul { margin:0 0 14px; padding-left:22px; }
+  li { margin:0 0 6px; }
+  code { font-size:15px; background:#f3f3f3; padding:1px 4px; }
+  .meta { color:var(--muted); margin:0 0 22px; }
 
-    --mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --sans: 'IBM Plex Sans', system-ui, sans-serif;
-    --cond: 'IBM Plex Sans Condensed', system-ui, sans-serif;
-  }
+  figure { margin:18px 0 24px; }
+  figure img, figure video { display:block; max-width:100%; height:auto; }
+  figure video { width:100%; }
+  figcaption { font-size:14px; color:var(--muted); line-height:1.45; margin-top:6px; }
+  .row { display:flex; gap:14px; align-items:flex-start; margin:18px 0 24px; }
+  .row figure { flex:1 1 0; min-width:0; margin:0; }
+  .row figure img, .row figure video { width:100%; }
+  img.zoom { cursor:zoom-in; }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  footer { margin-top:56px; padding-top:16px; border-top:1px solid var(--rule); font-size:15px; color:var(--muted); }
+  footer p { margin:0 0 6px; }
 
-  body{
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
-      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(70,98,110,0.07) 32px),
-      var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+  @media (max-width:640px) {
+    .wrap { padding-top:28px; }
+    .row { flex-direction:column; }
+    .row figure { flex:none !important; width:100%; }
   }
-
-  a{color:inherit;}
-  ::selection{background:var(--accent); color:var(--white);}
-  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
-
-  .sheet{ max-width:960px; margin:0 auto; padding:0 24px; }
-
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(237,233,224,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1.5px solid var(--ink);
-  }
-  nav .sheet{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; }
-  .nav-mark{ font-family:var(--mono); font-weight:600; font-size:0.85rem; letter-spacing:0.06em; }
-  .nav-mark span{ color:var(--accent); }
-  .back-link{
-    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.04em;
-    text-transform:uppercase; text-decoration:none;
-    display:flex; align-items:center; gap:6px;
-  }
-  .back-link:hover{ color:var(--accent); }
-
-  header.title-block{
-    border:1.5px solid var(--ink);
-    margin:32px auto 0;
-    max-width:960px;
-    background:var(--white);
-  }
-  .tb-top{ display:grid; grid-template-columns:1fr auto; border-bottom:1.5px solid var(--ink); }
-  .tb-name{ padding:36px 32px 24px; }
-  .eyebrow{
-    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.12em;
-    color:var(--steel); text-transform:uppercase; margin-bottom:14px;
-  }
-  h1{
-    font-family:var(--cond); font-weight:700;
-    font-size:clamp(1.8rem, 4.6vw, 2.8rem);
-    line-height:1.08; letter-spacing:-0.01em; text-transform:uppercase;
-  }
-  .role{ font-family:var(--mono); font-size:0.95rem; color:var(--ink-soft); margin-top:12px; }
-  .tb-fields{ display:flex; flex-direction:column; border-left:1.5px solid var(--ink); font-family:var(--mono); font-size:0.75rem; }
-  .tb-field{ padding:10px 18px; border-bottom:1px solid var(--line); min-width:150px; }
-  .tb-field:last-child{ border-bottom:none; }
-  .tb-field .k{ color:var(--steel); letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px; }
-  .tb-field .v{ font-weight:600; }
-  @media (max-width:640px){
-    .tb-top{ grid-template-columns:1fr; }
-    .tb-fields{ border-left:none; border-top:1.5px solid var(--ink); flex-direction:row; flex-wrap:wrap; }
-    .tb-field{ flex:1 1 50%; border-right:1px solid var(--line); }
-  }
-  .tb-bottom{ padding:22px 32px; }
-  .tb-bottom p{ color:var(--ink-soft); max-width:none; }
-
-  .dim-line{
-    display:flex; align-items:center; gap:10px;
-    margin:56px 0 30px; color:var(--line-strong);
-  }
-  .dim-line::before, .dim-line::after{ content:""; flex:1; height:1px; background:var(--line-strong); }
-  .dim-label{
-    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em;
-    text-transform:uppercase; color:var(--steel); white-space:nowrap;
-  }
-
-  section{ padding-top:4px; }
-  h2{
-    font-family:var(--cond); font-weight:700; text-transform:uppercase;
-    font-size:clamp(1.4rem, 3vw, 1.8rem); margin-bottom:16px;
-  }
-  h3{
-    font-family:var(--cond); font-weight:700; text-transform:uppercase;
-    font-size:1.05rem; margin:22px 0 8px;
-  }
-  h4{
-    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--steel); margin:22px 0 10px;
-  }
-  section p{ color:var(--ink-soft); max-width:none; }
-  section p + p{ margin-top:12px; }
-
-  .stat-row{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5px;
-    background:var(--ink); border:1.5px solid var(--ink);
-    margin:24px 0 8px;
-  }
-  @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
-  .stat{ background:var(--white); padding:20px; }
-  .stat .num{ font-family:var(--cond); font-weight:700; font-size:1.7rem; color:var(--accent); }
-  .stat .label{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--steel); margin-top:4px; }
-
-  .gallery{
-    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
-    margin:20px 0 8px;
-  }
-  @media (max-width:640px){ .gallery{ grid-template-columns:1fr; } }
-  .gallery.full{ grid-template-columns:1fr; }
-  .gallery.full .img-frame img, .gallery.full .img-frame video{
-    width:100%; height:auto; max-height:none;
-  }
-
-  .gallery figure{
-    border:1.5px solid var(--ink); background:var(--white);
-    display:flex; flex-direction:column;
-  }
-  .gallery .img-frame{
-    flex:1; min-height:0; background:var(--paper-alt);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden; border-bottom:1px solid var(--line);
-  }
-  .gallery .img-frame img, .gallery .img-frame video{
-    max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;
-  }
-  .gallery figcaption{
-    padding:10px 14px; font-family:var(--mono); font-size:0.72rem;
-    color:var(--ink-soft); line-height:1.4;
-  }
-
-  .tool-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-  .chip{
-    font-family:var(--mono); font-size:0.72rem; border:1px solid var(--line-strong);
-    padding:5px 10px; color:var(--ink-soft);
-  }
-
-  footer{
-    border:1.5px solid var(--ink); margin:64px auto 60px; max-width:960px;
-    background:var(--white); padding:32px; text-align:center;
-  }
-  footer p{ color:var(--ink-soft); margin-bottom:16px; }
-  .pill{
-    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.03em;
-    border:1.5px solid var(--ink); padding:8px 14px;
-    text-decoration:none; display:inline-block;
-    transition:background 0.15s, color 0.15s;
-  }
-  .pill:hover{ background:var(--ink); color:var(--white); }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<nav>
-  <div class="sheet">
-    <div class="nav-mark">E.TELLEZ<span>_</span>ME</div>
-    <a class="back-link" href="../index.html#projects">← Back to portfolio</a>
+  <p class="crumb"><a href="../index.html">Ernesto Tellez Perez</a> / <a href="../index.html#projects">Projects</a></p>
+
+  <h1>Gecko-Inspired Adhesive Testing</h1>
+  <p class="meta">Stanford Biomimetics and Dexterous Manipulation Lab · Summer Undergraduate Research Fellow (SURF) · Jun 2026 – present<br>
+  Tools: SolidWorks, OnShape, Python, OpenCV, ChArUco calibration, optics</p>
+
+  <p>As low-Earth orbit becomes more crowded with debris, robots need controlled ways to capture and stabilize objects without applying large forces. Gecko-inspired adhesives use wedge-shaped microstructures that are brought into contact using a controlled normal force and then engaged through shear loading. This project focused on building FTIR systems to visualize and measure how that contact develops during engagement and failure.</p>
+
+  <figure>
+      <img src="../images/bdml/bdml-final-demo.jpg" alt="Robotic arm and gripper set up for the space payload demo">
+      <figcaption>Robotic arm and gripper set up for the space payload demo.</figcaption>
+    </figure>
+
+  <h2>What I built</h2>
+  <p>I built two FTIR imaging systems for different stages of the lab's research. The large-scale setup provided an 8 × 8 in. imaging area for testing gecko-inspired adhesives and observing how contact changed during engagement and failure. I also built a compact version for the lab's NASA TechLeap proposal, placing the camera within 2 in. of the glass while still capturing a 3 × 3 in. area within the payload's space constraints. The software supported both systems by correcting distortion and measuring the contact area of each adhesive pad over time.</p>
+
+  <h2>Large-scale test bench</h2>
+  <p>The larger FTIR test bench has an 8 × 8 in. imaging area, allowing larger grippers to be tested than with the compact system. The glass is mounted horizontally with the camera overhead and the grippers engaging upside down, preventing gravity from helping press them into the surface.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/bdml/bdml-large-cad-1.png" alt="CAD model of the large-scale FTIR test bench">
+      <figcaption>CAD model of the large-scale FTIR test bench showing the modular camera mount, LED casing and glass plate.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/bdml/bdml-large-cad-2.png" alt="CAD model of the large-scale FTIR test bench, alternate view">
+      <figcaption>CAD model showing the camera location.</figcaption>
+    </figure>
   </div>
-</nav>
-
-<header class="title-block sheet" style="padding:0;">
-  <div class="tb-top">
-    <div class="tb-name">
-      <div class="eyebrow">Project — Summer Research</div>
-      <h1>Gecko-Inspired Adhesive Testing</h1>
-      <p class="role">Summer Undergraduate Research Fellow (SURF) — Stanford Biomimetics &amp; Dexterous Manipulation Lab</p>
-    </div>
-    <div class="tb-fields">
-      <div class="tb-field"><span class="k">Role</span><span class="v">Research Fellow</span></div>
-      <div class="tb-field"><span class="k">Dates</span><span class="v">June 2026 — Present</span></div>
-      <div class="tb-field"><span class="k">Rev.</span><span class="v">2026.08</span></div>
-    </div>
+  <div class="row">
+    <figure>
+      <img src="../images/bdml/bdml-large-ftir-top.png" alt="Large-scale FTIR test bench built in the lab, high view">
+      <figcaption>The built setup, high view.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/bdml/bdml-large-ftir.png" alt="Large-scale FTIR test bench built in the lab, low view">
+      <figcaption>The built setup, low view.</figcaption>
+    </figure>
   </div>
-  <div class="tb-bottom">
-    <p>As low-Earth orbit becomes more crowded with debris, robots need controlled ways to capture and stabilize objects without applying large forces. Gecko-inspired adhesives use wedge-shaped microstructures that are brought into contact using a controlled normal force and then engaged through shear loading. This project focused on building FTIR systems to visualize and measure how that contact develops during engagement and failure.</p>
-    <div class="tool-chips" style="margin-top:16px;">
-      <span class="chip">SolidWorks</span>
-      <span class="chip">OnShape</span>
-      <span class="chip">Python</span>
-      <span class="chip">OpenCV</span>
-      <span class="chip">ChArUco Calibration</span>
-      <span class="chip">Optics</span>
-    </div>
+
+  <h2>Image processing and calibration</h2>
+  <p>Lens distortion was corrected using a standard OpenCV camera calibration pipeline. A ChArUco board, combining a checkerboard with uniquely identifiable ArUco markers, was recorded from multiple angles. Because each marker is independently identifiable, corners could still be detected when the board was partially blocked or outside the frame. The detected image points and known board geometry were passed into <code>cv2.calibrateCamera</code> to calculate the camera's intrinsic matrix and distortion coefficients. These values were used to create a fixed undistortion map for every frame, followed by an edge crop to remove unreliable border regions.</p>
+  <p>The corrected frames were converted to HSV color space and thresholded for the blue and cyan hues produced by frustrated total internal reflection at the adhesive interface. A tiered hysteresis method used weak, core, and strong saturation and value thresholds to classify pixels as possible, probable, or strong contact, reducing noise while preserving faint contact edges. Within user-defined regions of interest around each pad, connected-component analysis grouped the thresholded pixels into separate contact fragments. A millimeter-per-pixel scale, established using a reference of known length, converted each fragment's pixel area into mm². The measured area was then compared with the pad's expected area to calculate percent coverage for each pad in every frame.</p>
+
+  <h3>Detection tool</h3>
+  <figure>
+      <img src="../images/bdml/bdml_detection.png" alt="Detection settings in the analysis tool">
+      <figcaption>Color detection settings (HSV) calculated from each pixel's RGB values. Detection can run on the full frame or within selected ROIs, over a chosen range of frames.</figcaption>
+    </figure>
+  <figure>
+      <img src="../images/bdml/bdml_roi_settings.png" alt="Region-of-interest settings for per-pad detection">
+      <figcaption>ROI settings: location, frame range, expected adhesive pad area, and a minimum lit area to filter out noise.</figcaption>
+    </figure>
+
+  <h3>Scale calibration</h3>
+  <figure>
+      <img src="../images/bdml/bdml_scale_calibration.png" alt="Scale calibration used to convert pixels to millimeters">
+      <figcaption>Scale set for area calculation by selecting two points on a ruler and computing pixels per mm.</figcaption>
+    </figure>
+
+  <h3>Calibration videos</h3>
+  <figure>
+      <video src="../images/bdml/bdml_live_feed.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>Live camera view, camera controls, and recording controls.</figcaption>
+    </figure>
+  <figure>
+      <video src="../images/bdml/bdml_charuco.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>ChArUco calibration, which takes 15 images at various angles and distances.</figcaption>
+    </figure>
+  <figure>
+      <video src="../images/bdml/bdml_post_calibration.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>Before and after calibration, showing distortion correction and cropping.</figcaption>
+    </figure>
+
+  <h2>Data</h2>
+  <p>The FTIR data shows how contact changes from initial engagement through failure. It captures where contact first forms, how it spreads across the adhesive pads as load is applied, and where contact is lost as the adhesive begins to detach. This makes it possible to compare how evenly each pad engages and identify the regions where failure starts and progresses.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/bdml/adhesive_left_pad_contact.png" alt="FTIR image of initial contact on the left pad">
+      <figcaption>Initial contact of the left adhesive pad.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/bdml/Adhesive_right_pad_contact.png" alt="FTIR image of initial contact on the right pad">
+      <figcaption>Initial contact of the right adhesive pad.</figcaption>
+    </figure>
   </div>
-</header>
+  <div class="row">
+    <figure>
+      <img src="../images/bdml/Adhesive_full_contact.png" alt="FTIR image of full contact on both pads">
+      <figcaption>Full contact detection.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/bdml/adhesive_failure.png" alt="FTIR image at the start of failure">
+      <figcaption>Initial failure of the gripper.</figcaption>
+    </figure>
+  </div>
+  <figure>
+      <video src="../images/bdml/adhesive_contact.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>Full engagement and failure of the gripper.</figcaption>
+    </figure>
 
-<div class="sheet">
+  <h2>Space payload demo testing</h2>
+  <p>This demo tested a robotic arm manipulating a gripper and pressing it onto the glass of the compact FTIR system, which was mounted on its spring suspension to mimic free-floating motion. FTIR data was then captured to evaluate the resulting contact.</p>
 
-  <div class="dim-line"><span class="dim-label">Setup</span></div>
-  <section>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-final-demo.jpg" alt="Robotic arm and gripper positioned for the space payload demo"></div>
-        <figcaption>Robotic arm and gripper set up for the space payload demo.</figcaption>
-      </figure>
-    </div>
-  </section>
+  <h3>Compact FTIR system</h3>
+  <p>I built a compact FTIR system for the lab's NASA TechLeap proposal, where the camera had to fit within 2 in. of the glass while still seeing the full 3 × 3 in. contact area. The setup was suspended on springs to try to mimic something free-floating and give it several degrees of freedom within a controlled range.</p>
+  <div class="row">
+    <figure>
+      <img src="../images/bdml/bdml-compact-cad.png" alt="CAD model of the compact FTIR system">
+      <figcaption>CAD of the compact FTIR for the NASA TechLeap proposal.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/bdml/ftir-compact.png" alt="Compact FTIR system built in the lab">
+      <figcaption>The fully built compact FTIR.</figcaption>
+    </figure>
+  </div>
 
-  <div class="dim-line"><span class="dim-label">Overview</span></div>
-  <section>
-    <h2>What I Built</h2>
-    <p>I built two FTIR imaging systems for different stages of the lab's research. The large-scale setup provided an 8 × 8 in. imaging area for testing gecko-inspired adhesives and observing how contact changed during engagement and failure. I also built a compact version for the lab's NASA TechLeap proposal, placing the camera within 2 in. of the glass while still capturing a 3 × 3 in. area within the payload's space constraints. The software supported both systems by correcting distortion and measuring the contact area of each adhesive pad over time.</p>
+  <h3>Assembly and demo</h3>
+  <figure>
+      <img src="../images/bdml/payload_mid_assembly.jpg" alt="Space payload test rig mid-assembly">
+      <figcaption>Mid-assembly, showing the cleat and cleat dock along with the 80/20 extrusion frame.</figcaption>
+    </figure>
+  <figure>
+      <video src="../images/bdml/payload_demo_main_v2.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>Full demo of the robotic arm pressing the gripper onto the FTIR glass, including undocking and docking.</figcaption>
+    </figure>
+  <figure>
+      <video src="../images/bdml/payload_ftir.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>FTIR view during the demo.</figcaption>
+    </figure>
 
-    <div class="stat-row">
-      <div class="stat"><div class="num">8×8 in.</div><div class="label">Max Detectable Area — Large-Scale Bench (limits gripper/adhesive pad size)</div></div>
-      <div class="stat"><div class="num">3×3 in.</div><div class="label">Max Detectable Area — Compact System, within 2 in. of glass</div></div>
-      <div class="stat"><div class="num">NASA</div><div class="label">TechLeap Proposal Hardware (Compact System)</div></div>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Large-Scale Test Bench</span></div>
-  <section>
-    <p>The larger FTIR test bench has an 8 × 8 in. imaging area, allowing larger grippers to be tested than with the compact system. The glass is mounted horizontally with the camera overhead and the grippers engaging upside down, preventing gravity from helping press them into the surface.</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-large-cad-1.png" alt="CAD render of the large-scale FTIR test bench enclosure"></div>
-        <figcaption>CAD model of Large-Scale FTIR test bench showcasing modular camera mount, LED casing and glass plate.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-large-cad-2.png" alt="CAD render of the large-scale FTIR test bench enclosure, alternate view"></div>
-        <figcaption>CAD model of Large-Scale FTIR test bench showcasing camera location.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-large-ftir-top.png" alt="Large-scale FTIR test bench built in the lab, top view"></div>
-        <figcaption>IRL view of large FTIR setup - high.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-large-ftir.png" alt="Large-scale FTIR test bench built in the lab, side view"></div>
-        <figcaption>IRL view of large FTIR setup - low.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Image Processing &amp; Calibration</span></div>
-  <section>
-    <p>Lens distortion was corrected using a standard OpenCV camera calibration pipeline. A ChArUco board, combining a checkerboard with uniquely identifiable ArUco markers, was recorded from multiple angles. Because each marker is independently identifiable, corners could still be detected when the board was partially blocked or outside the frame. The detected image points and known board geometry were passed into <code>cv2.calibrateCamera</code> to calculate the camera's intrinsic matrix and distortion coefficients. These values were used to create a fixed undistortion map for every frame, followed by an edge crop to remove unreliable border regions.</p>
-    <p>The corrected frames were converted to HSV color space and thresholded for the blue and cyan hues produced by frustrated total internal reflection at the adhesive interface. A tiered hysteresis method used weak, core, and strong saturation and value thresholds to classify pixels as possible, probable, or strong contact, reducing noise while preserving faint contact edges. Within user-defined regions of interest around each pad, connected-component analysis grouped the thresholded pixels into separate contact fragments. A millimeter-per-pixel scale, established using a reference of known length, converted each fragment's pixel area into mm². The measured area was then compared with the pad's expected area to calculate percent coverage for each pad in every frame.</p>
-
-    <h4>Detection Tool</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml_detection.png" alt="Detection tool settings for contact detection"></div>
-        <figcaption>Color detection settings (HSV) calculated from pixel's RGB values. Allows for detection in either full frame area or within select ROIs. Also allows for control over which range of frames are processed.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml_roi_settings.png" alt="Region-of-interest settings for per-pad detection"></div>
-        <figcaption>ROI settings, including defining location, range, expected adhesive pad area, and min area of light accepted to reduce noise.</figcaption>
-      </figure>
-    </div>
-
-    <h4>Scale Calibration</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml_scale_calibration.png" alt="Scale calibration used to convert pixels to physical units"></div>
-        <figcaption>Scale set for area calculation using a ruler, selecting two pixels, and calculated pixels/mm based on the two points.</figcaption>
-      </figure>
-    </div>
-
-    <h4>Calibration Videos</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/bdml_live_feed.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>Showcase of live camera view, camera controls, and recording controls.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/bdml_charuco.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>ChArUco calibration requiring 15 images at various angles and distances to fully calibrate.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/bdml_post_calibration.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>Pre and post calibration showing distortion correction and cropping.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Data</span></div>
-  <section>
-    <p>The FTIR data shows how contact changes from initial engagement through failure. It captures where contact first forms, how it spreads across the adhesive pads as load is applied, and where contact is lost as the adhesive begins to detach. This makes it possible to compare how evenly each pad engages and identify the regions where failure starts and progresses.</p>
-
-    <h4>Initial Contact</h4>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/adhesive_left_pad_contact.png" alt="FTIR imaging of initial adhesive contact"></div>
-        <figcaption>Initial contact of left adhesive pad.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/Adhesive_right_pad_contact.png" alt="FTIR imaging of initial adhesive contact, second view"></div>
-        <figcaption>Initial contact of right adhesive pad.</figcaption>
-      </figure>
-    </div>
-
-    <h4>During Engagement</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/Adhesive_full_contact.png" alt="FTIR imaging of adhesive contact during engagement"></div>
-        <figcaption>Full contact detection.</figcaption>
-      </figure>
-    </div>
-
-    <h4>Failure</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/adhesive_failure.png" alt="FTIR imaging of adhesive contact at failure"></div>
-        <figcaption>Initial failure of gripper.</figcaption>
-      </figure>
-    </div>
-
-    <h4>Full Sequence</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/adhesive_contact.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>Full engagement and failure of gripper.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="dim-line"><span class="dim-label">Space Payload Demo Testing</span></div>
-  <section>
-    <p>This demo tested a robotic arm manipulating a gripper and pressing it onto the glass of the compact FTIR system, which was mounted on its spring suspension to mimic free-floating motion. FTIR data was then captured to evaluate the resulting contact.</p>
-
-    <h4>Compact FTIR System</h4>
-    <p>I built a compact FTIR system for the lab's NASA TechLeap proposal, where the camera had to fit within 2 in. of the glass while still seeing the full 3 × 3 in. contact area. The setup was suspended on springs to try to mimic something free-floating and give it several degrees of freedom within a controlled range.</p>
-    <div class="gallery">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/bdml-compact-cad.png" alt="CAD render of the compact FTIR system"></div>
-        <figcaption>CAD of compact FTIR for NASA TechLeap proposal.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/ftir-compact.png" alt="Compact FTIR system built in the lab"></div>
-        <figcaption>Fully built compact FTIR for NASA TechLeap proposal.</figcaption>
-      </figure>
-    </div>
-
-    <h4>Assembly &amp; Demo</h4>
-    <div class="gallery full">
-      <figure>
-        <div class="img-frame"><img src="../images/bdml/payload_mid_assembly.jpg" alt="Space payload test rig mid-assembly"></div>
-        <figcaption>Mid-assembly view showing the cleat and cleat dock, along with the 80/20 extrusion frame.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/payload_demo_main_v2.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>Full demo of the robotic arm pressing the gripper onto the FTIR glass, including undocking and docking.</figcaption>
-      </figure>
-      <figure>
-        <div class="img-frame"><video src="../images/bdml/payload_ftir.mp4" autoplay loop muted playsinline controls></video></div>
-        <figcaption>FTIR view during the demo.</figcaption>
-      </figure>
-    </div>
-  </section>
+  <footer>
+    <p>Excited to talk more about this project. <a href="mailto:ernesto.tellez@berkeley.edu">ernesto.tellez@berkeley.edu</a></p>
+    <p><a href="../index.html">&larr; Back to all projects</a></p>
+  </footer>
 
 </div>
-
-<footer>
-  <p>Excited to talk more about this project.</p>
-  <a class="pill" href="mailto:ernesto.tellez@berkeley.edu">Get in touch</a>
-</footer>
-
+<script>
+  // Images side by side in a row share one height with no cropping:
+  // each figure's width is set in proportion to its image's shape.
+  document.querySelectorAll('.row img, .row video').forEach(function (m) {
+    function size() {
+      var w = m.naturalWidth || m.videoWidth, h = m.naturalHeight || m.videoHeight;
+      if (w && h) m.closest('figure').style.flex = (w / h) + ' 1 0';
+    }
+    if (m.tagName === 'IMG') { m.complete ? size() : m.addEventListener('load', size); }
+    else { m.readyState >= 1 ? size() : m.addEventListener('loadedmetadata', size); }
+  });
+  // Click any image to open it full size.
+  document.querySelectorAll('figure img').forEach(function (img) {
+    img.classList.add('zoom');
+    img.addEventListener('click', function () { window.open(img.src, '_blank'); });
+  });
+</script>
 </body>
 </html>
